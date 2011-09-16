@@ -1,7 +1,7 @@
 <?php
 
 abstract class Settings_Option {
-	protected $_name, $_values, $_value, $_type, $_default_value, $_tab, $_section, $_label, $_description, $_parent_name;
+	protected $_name, $_valid_values, $_value, $_type, $_default_value, $_tab, $_section, $_label, $_description, $_parent_name;
 
 	public function name( $name = NULL ) {
 		if ( NULL === $name )
@@ -11,11 +11,11 @@ abstract class Settings_Option {
 		return $this;
 	}
 
-	public function values( $values = NULL ) {
-		if ( NULL === $values )
-			return $this->_values;
+	public function valid_values( $valid_values = NULL ) {
+		if ( NULL === $valid_values )
+			return $this->_valid_values;
 
-		$this->_values = $values;
+		$this->_valid_values = $valid_values;
 		return $this;
 	}
 
