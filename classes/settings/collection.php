@@ -115,7 +115,7 @@ class Settings_Collection {
 		$options = $this->options();
 
 		foreach( $options as $option ) {
-			$defaults[ $option->name() ] = $option->value();
+			$defaults[ $option->name() ] = $option->default_value();
 		}
 
 		return $defaults;
