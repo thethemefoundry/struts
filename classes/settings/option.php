@@ -1,7 +1,7 @@
 <?php
 
 abstract class Settings_Option {
-	protected $_name, $_values, $_type, $_default_value, $_tab, $_section, $_label, $_description, $_page_name;
+	protected $_name, $_values, $_value, $_type, $_default_value, $_tab, $_section, $_label, $_description, $_parent_name;
 
 	public function name( $name = NULL ) {
 		if ( NULL === $name )
@@ -16,6 +16,14 @@ abstract class Settings_Option {
 			return $this->_values;
 
 		$this->_values = $values;
+		return $this;
+	}
+
+	public function value( $value = NULL ) {
+		if ( NULL === $value )
+			return $this->_value;
+
+		$this->_value = $value;
 		return $this;
 	}
 
@@ -35,11 +43,27 @@ abstract class Settings_Option {
 		return $this;
 	}
 
-	public function page_name( $page_name = NULL ) {
-		if ( NULL === $page_name )
-			return $this->_page_name;
+	public function tab( $tab = NULL ) {
+		if ( NULL === $tab )
+			return $this->_tab;
 
-		$this->_page_name = $page_name;
+		$this->_tab = $tab;
+		return $this;
+	}
+
+	public function label( $label = NULL ) {
+		if ( NULL === $label )
+			return $this->_label;
+
+		$this->_label = $label;
+		return $this;
+	}
+
+	public function parent_name( $parent_name = NULL ) {
+		if ( NULL === $parent_name )
+			return $this->_parent_name;
+
+		$this->_parent_name = $parent_name;
 		return $this;
 	}
 
@@ -50,8 +74,8 @@ abstract class Settings_Option {
 			$this->name(),
 			$this->label(),
 			array( &$this, 'to_html' ),
-			$this->page_name(),
-			$this->section() );
+			NULL,
+			NULL );
 	}
 
 	abstract public function to_html();
