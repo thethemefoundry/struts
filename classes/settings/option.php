@@ -56,6 +56,14 @@ abstract class Settings_Option {
 		return $this;
 	}
 
+	public function section( $section = NULL ) {
+		if ( NULL === $section )
+			return $this->_section;
+
+		$this->_section = $section;
+		return $this;
+	}
+
 	public function label( $label = NULL ) {
 		if ( NULL === $label )
 			return $this->_label;
@@ -63,6 +71,15 @@ abstract class Settings_Option {
 		$this->_label = $label;
 		return $this;
 	}
+
+	public function description( $description = NULL ) {
+		if ( NULL === $description )
+			return $this->_description;
+
+		$this->_description = $description;
+		return $this;
+	}
+
 
 	public function parent_name( $parent_name = NULL ) {
 		if ( NULL === $parent_name )
