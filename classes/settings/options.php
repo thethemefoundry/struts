@@ -1,11 +1,12 @@
 <?php
 
 class Settings_Options {
-	protected $_options, $_option_name;
+	protected $_options, $_option_name, $_slug;
 
-	public function __construct( $option_name ) {
+	public function __construct( $slug, $option_name ) {
 		$this->options( array() );
 		$this->option_name( $option_name );
+		$this->slug( $slug );
 	}
 
 	public function add_option( $name, $type ) {
@@ -25,6 +26,15 @@ class Settings_Options {
 			return $this->_options;
 
 		$this->_options = $options;
+
+		return $this;
+	}
+
+	public function slug( $slug = NULL ) {
+		if ( NULL === $slug )
+			return $this->_slug;
+
+		$this->_slug = $slug;
 
 		return $this;
 	}
@@ -103,5 +113,22 @@ class Settings_Options {
 	//TODO: Actually validate input
 	public function validate( $input ) {
 		return $input;
+	}
+
+	public function setup() {
+		$this->initialize();
+
+		// Load the Admin Options page
+		add_action( 'admin_menu', array( &$this, 'add_options_page' ) );
+		add_action( 'admin_init', array( &$this, 'register' ) );
+	}
+
+	function add_options_page() {
+		add_theme_page(
+			'Theme Options',
+			'Theme Options',
+			'edit_theme_options',
+			$this->slug() . '-settings',
+			array( &$this, 'form_html' ) );
 	}
 }
