@@ -1,10 +1,11 @@
 <?php
 
 class Settings_Collection {
-	protected $_options, $_name, $_slug;
+	protected $_options, $_name, $_slug, $_sections;
 
 	public function __construct( $slug, $name ) {
 		$this->options( array() );
+		$this->sections( array() );
 		$this->slug( $slug );
 		$this->name( $name );
 	}
@@ -16,6 +17,15 @@ class Settings_Collection {
 			return $this->_options;
 
 		$this->_options = $options;
+
+		return $this;
+	}
+
+	public function sections( $sections = NULL ) {
+		if ( NULL === $sections )
+			return $this->_sections;
+
+		$this->_sections = $sections;
 
 		return $this;
 	}
@@ -84,22 +94,39 @@ class Settings_Collection {
 	}
 
 	/**
+	 *
+	 */
+	public function add_section( $name, $text ) {
+		$this->_sections[$name] = new Settings_Section( $name, $text );
+	}
+
+	/**
 	 * Adds an option with the given name and type to this collection
 	 * Sets the option's parent_name to this collection's name, and returns the option
 	 *
 	 * @param $name - unique (within the collection ) name for this option
 	 * @param $type - type of option (text/select/checkbox/etc)
+	 * @param $section - name of the section this option goes in
 	 *
 	 * @return Settings_Option
 	 */
-	public function add_option( $name, $type ) {
+	public function add_option( $name, $type, $section_name = NULL ) {
 		$option_class = 'Settings_Option_' . ucfirst( $type );
 
 		$option = new $option_class;
 		$option->name( $name );
 		$option->parent_name( $this->name() );
 
-		$this->_options[] = $option;
+		if ( NULL !== $section_name ) {
+			$sections = $this->sections();
+			if ( ! isset( $sections[$section_name] ) ) {
+				throw new SectionNotFoundException("Section with name '$section_name' not defined");
+			}
+
+			$sections[$section_name]->add_option($option);
+		} else {
+			$this->_options[] = $option;
+		}
 
 		return $option;
 	}
@@ -139,11 +166,15 @@ class Settings_Collection {
 
 	public function options_html() {
 		$output = "";
-		$options = $this->options();
 
-		foreach ( $options as $option ) {
+		foreach ( $this->sections() as $section ) {
+			$output .= $section->to_html();
+		}
+
+		foreach ( $this->options() as $option ) {
 			$output .= $option->to_html();
 		}
+
 		return $output;
 	}
 
@@ -152,3 +183,5 @@ class Settings_Collection {
 			return "<div class='updated'><p>Theme settings updated successfully.</p></div>";
 	}
 }
+
+class SectionNotFoundException extends Exception { }
