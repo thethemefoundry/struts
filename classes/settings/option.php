@@ -72,12 +72,19 @@ abstract class Settings_Option {
 		return $this;
 	}
 
-
 	public function parent_name( $parent_name = NULL ) {
 		if ( NULL === $parent_name )
 			return $this->_parent_name;
 
 		$this->_parent_name = $parent_name;
+		return $this;
+	}
+
+	public function section( $section = NULL ) {
+		if ( NULL === $section )
+			return $this->_section;
+
+		$this->_section = $section;
 		return $this;
 	}
 
@@ -88,8 +95,8 @@ abstract class Settings_Option {
 			$this->name(),
 			$this->label(),
 			array( &$this, 'to_html' ),
-			NULL,
-			NULL );
+			$this->parent_name(),
+			$this->section() );
 	}
 
 	abstract public function to_html();
