@@ -88,6 +88,16 @@ abstract class Settings_Option {
 		return $this;
 	}
 
+	// The HTML ID takes the form 'parentname-optionname'
+	protected function html_id() {
+		return $this->parent_name() . '-' . $this->name();
+	}
+
+	// Name takes the form 'parentname[optionname]'
+	protected function html_name() {
+		return $this->parent_name() . '[' . $this->name() . ']';
+	}
+
 	//TODO: Other properties here
 
 	public function register() {

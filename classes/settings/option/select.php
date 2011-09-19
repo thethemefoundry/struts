@@ -2,10 +2,8 @@
 
 class Settings_Option_Select extends Settings_Option {
 	public function to_html() {
-		// ID takes the form 'parentname-optionname'
-		$id = $this->parent_name() . '-' . $this->name();
-		// Name takes the form 'parentname[optionname]'
-		$name = $this->parent_name() . '[' . $this->name() . ']';
+		$id = $this->html_id();
+		$name = $this->html_name();
 
 		$output = "<select id='$id' name='$name'>";
 
