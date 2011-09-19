@@ -21,10 +21,6 @@ abstract class Settings_Option {
 
 	public function value( $value = NULL ) {
 		if ( NULL === $value ) {
-			// Set value to the default if it hasn't be set before
-			if ( NULL === $this->_value ) {
-				$this->_value = $this->default_value();
-			}
 			return $this->_value;
 		}
 
@@ -72,13 +68,30 @@ abstract class Settings_Option {
 		return $this;
 	}
 
-
 	public function parent_name( $parent_name = NULL ) {
 		if ( NULL === $parent_name )
 			return $this->_parent_name;
 
 		$this->_parent_name = $parent_name;
 		return $this;
+	}
+
+	public function section( $section = NULL ) {
+		if ( NULL === $section )
+			return $this->_section;
+
+		$this->_section = $section;
+		return $this;
+	}
+
+	// The HTML ID takes the form 'parentname-optionname'
+	protected function html_id() {
+		return $this->parent_name() . '-' . $this->name();
+	}
+
+	// Name takes the form 'parentname[optionname]'
+	protected function html_name() {
+		return $this->parent_name() . '[' . $this->name() . ']';
 	}
 
 	//TODO: Other properties here
@@ -88,8 +101,8 @@ abstract class Settings_Option {
 			$this->name(),
 			$this->label(),
 			array( &$this, 'to_html' ),
-			NULL,
-			NULL );
+			$this->parent_name(),
+			$this->section() );
 	}
 
 	abstract public function to_html();

@@ -1,31 +1,31 @@
 <?php
 
 class Settings_Collection {
-	protected $_options, $_name, $_slug, $_sections;
+	protected $_sections, $_options, $_name, $_slug;
 
 	public function __construct( $slug, $name ) {
-		$this->options( array() );
 		$this->sections( array() );
+		$this->options( array() );
 		$this->slug( $slug );
 		$this->name( $name );
+		$this->register_hooks();
 	}
 
 	/***** Attribute accessors *****/
+	public function sections( $sections = NULL ) {
+		if ( NULL === $sections )
+			return $this->_sections;
+
+		$this->_sections = $sections;
+
+		return $this;
+	}
 
 	public function options( $options = NULL ) {
 		if ( NULL === $options )
 			return $this->_options;
 
 		$this->_options = $options;
-
-		return $this;
-	}
-
-	public function sections( $sections = NULL ) {
-		if ( NULL === $sections )
-			return $this->_sections;
-
-		$this->_sections = $sections;
 
 		return $this;
 	}
@@ -50,11 +50,10 @@ class Settings_Collection {
 
 	/***** WordPress setup *****/
 
-	public function setup() {
-		$this->initialize();
-
+	public function register_hooks() {
 		// Load the Admin Options page
 		add_action( 'admin_menu', array( &$this, 'add_options_page' ) );
+		// Register the sections and options
 		add_action( 'admin_init', array( &$this, 'register' ) );
 	}
 
@@ -86,6 +85,20 @@ class Settings_Collection {
 
 	public function register() {
 		register_setting( $this->name(), $this->name(), array( &$this, 'validate' ) );
+		$this->register_sections();
+		$this->register_options();
+	}
+
+	protected function register_options() {
+		foreach( $this->options() as $option ) {
+			$option->register();
+		}
+	}
+
+	protected function register_sections() {
+		foreach( $this->sections() as $section ) {
+			$section->register();
+		}
 	}
 
 	//TODO: Actually validate input
@@ -96,8 +109,12 @@ class Settings_Collection {
 	/**
 	 *
 	 */
-	public function add_section( $name, $text ) {
-		$this->_sections[$name] = new Settings_Section( $name, $text );
+	public function add_section( $id, $title, $description = NULL ) {
+		$this->_sections[] = new Settings_Section( $id, $title, $description, $this->name() );
+	}
+
+	public function description_html() {
+		echo "<p>Figure out how to handle description callbacks</p>";
 	}
 
 	/**
@@ -110,23 +127,15 @@ class Settings_Collection {
 	 *
 	 * @return Settings_Option
 	 */
-	public function add_option( $name, $type, $section_name = NULL ) {
+	public function add_option( $name, $type, $section = NULL ) {
 		$option_class = 'Settings_Option_' . ucfirst( $type );
 
 		$option = new $option_class;
 		$option->name( $name );
 		$option->parent_name( $this->name() );
+		$option->section( $section );
 
-		if ( NULL !== $section_name ) {
-			$sections = $this->sections();
-			if ( ! isset( $sections[$section_name] ) ) {
-				throw new SectionNotFoundException("Section with name '$section_name' not defined");
-			}
-
-			$sections[$section_name]->add_option($option);
-		} else {
-			$this->_options[] = $option;
-		}
+		$this->_options[] = $option;
 
 		return $option;
 	}
@@ -156,27 +165,13 @@ class Settings_Collection {
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( $this->name() );
-				echo $this->options_html();
+				do_settings_sections( $this->name() );
 				?>
 				<input type="submit" class="button-primary" value="<?php esc_attr_e('Save Settings', 'react'); ?>" />
 				<input type="submit" class="button-secondary" value="<?php esc_attr_e('Reset Defaults', 'react'); ?>" />
 			</form>
 		</div>
 	<?php }
-
-	public function options_html() {
-		$output = "";
-
-		foreach ( $this->sections() as $section ) {
-			$output .= $section->to_html();
-		}
-
-		foreach ( $this->options() as $option ) {
-			$output .= $option->to_html();
-		}
-
-		return $output;
-	}
 
 	public function settings_updated_html() {
 		if ( isset( $_GET['settings-updated'] ) )

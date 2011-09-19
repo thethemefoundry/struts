@@ -1,54 +1,56 @@
 <?php
 
 class Settings_Section {
-	protected $_name, $_text, $_options;
+	protected $_id, $_title, $_description, $_parent_name;
 
-	public function __construct( $name, $text ) {
-		$this->name( $name );
-		$this->text( $text );
-		$this->options( array() );
+	public function __construct( $id, $title, $description, $parent_name ) {
+		$this->id( $id );
+		$this->title( $title );
+		$this->description( $description );
+		$this->parent_name( $parent_name );
 	}
 
-	public function name( $name = NULL ) {
-		if ( NULL === $name )
-			return $this->_name;
+	public function id( $id = NULL ) {
+		if ( NULL === $id )
+			return $this->_id;
 
-		$this->_name = $name;
-
+		$this->_id = $id;
 		return $this;
 	}
 
-	public function text( $text = NULL ) {
-		if ( NULL === $text )
-			return $this->_text;
+	public function title( $title = NULL ) {
+		if ( NULL === $title )
+			return $this->_title;
 
-		$this->_text = $text;
-
+		$this->_title = $title;
 		return $this;
 	}
 
-	public function options( $options = NULL ) {
-		if ( NULL === $options )
-			return $this->_options;
+	public function description( $description = NULL ) {
+		if ( NULL === $description )
+			return $this->_description;
 
-		$this->_options = $options;
-
+		$this->_description = $description;
 		return $this;
 	}
 
-	public function add_option( Settings_Option $option ) {
-		$this->_options[] = $option;
+	public function parent_name( $parent_name = NULL ) {
+		if ( NULL === $parent_name )
+			return $this->_parent_name;
+
+		$this->_parent_name = $parent_name;
+		return $this;
 	}
 
-	public function to_html() {
-		$output = "<div class='section' style='border:2px solid #000'>";
+	public function description_html() {
+		echo "<p>{$this->description()}</p>";
+	}
 
-		foreach ( $this->options() as $option ) {
-			$output .= $option->to_html();
-		}
-
-		$output .= "</div>";
-
-		return $output;
+	public function register() {
+		add_settings_section(
+			$this->id(),
+			$this->title(),
+			array( &$this, 'description_html' ),
+			$this->parent_name() );
 	}
 }
