@@ -1,16 +1,25 @@
 <?php
 
 class Settings_Collection {
-	protected $_options, $_name, $_slug;
+	protected $_sections, $_options, $_name, $_slug;
 
 	public function __construct( $slug, $name ) {
+		$this->sections( array() );
 		$this->options( array() );
 		$this->slug( $slug );
 		$this->name( $name );
-		$this->setup();
+		$this->register_hooks();
 	}
 
 	/***** Attribute accessors *****/
+	public function sections( $sections = NULL ) {
+		if ( NULL === $sections )
+			return $this->_sections;
+
+		$this->_sections = $sections;
+
+		return $this;
+	}
 
 	public function options( $options = NULL ) {
 		if ( NULL === $options )
@@ -41,10 +50,11 @@ class Settings_Collection {
 
 	/***** WordPress setup *****/
 
-	public function setup() {
-		add_action( 'after_setup_theme', array( &$this, 'initialize' ) );
+	public function register_hooks() {
 		// Load the Admin Options page
 		add_action( 'admin_menu', array( &$this, 'add_options_page' ) );
+		// Register the sections and options
+		add_action( 'admin_init', array( &$this, 'register' ) );
 	}
 
 	public function initialize() {
@@ -75,7 +85,20 @@ class Settings_Collection {
 
 	public function register() {
 		register_setting( $this->name(), $this->name(), array( &$this, 'validate' ) );
+		$this->register_sections();
 		$this->register_options();
+	}
+
+	protected function register_options() {
+		foreach( $this->options() as $option ) {
+			$option->register();
+		}
+	}
+
+	protected function register_sections() {
+		foreach( $this->sections() as $section ) {
+			$section->register();
+		}
 	}
 
 	//TODO: Actually validate input
@@ -86,18 +109,12 @@ class Settings_Collection {
 	/**
 	 *
 	 */
-	public function add_section( $id, $title, $description = '' ) {
-		add_settings_section( $id, $title, array( &$this, 'description_html' ), $this->name() );
+	public function add_section( $id, $title, $description = NULL ) {
+		$this->_sections[] = new Settings_Section( $id, $title, $description, $this->name() );
 	}
 
 	public function description_html() {
 		echo "<p>Figure out how to handle description callbacks</p>";
-	}
-
-	public function register_options() {
-		foreach( $this->options() as $option ) {
-			$option->register();
-		}
 	}
 
 	/**

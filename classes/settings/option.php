@@ -21,10 +21,6 @@ abstract class Settings_Option {
 
 	public function value( $value = NULL ) {
 		if ( NULL === $value ) {
-			// Set value to the default if it hasn't be set before
-			if ( NULL === $this->_value ) {
-				$this->_value = $this->default_value();
-			}
 			return $this->_value;
 		}
 
