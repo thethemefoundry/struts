@@ -102,8 +102,15 @@ class Settings_Collection {
 	}
 
 	//TODO: Actually validate input
-	public function validate( $input ) {
-		return $input;
+	public function validate( $inputs ) {
+		$validated_input = array();
+
+		foreach ( $inputs as $key => $value ) {
+			$option = $this->_options[$key];
+			$validated_input[$key] = $option->validate( $value );
+		}
+
+		return $validated_input;
 	}
 
 	/**
@@ -135,7 +142,7 @@ class Settings_Collection {
 		$option->parent_name( $this->name() );
 		$option->section( $section );
 
-		$this->_options[] = $option;
+		$this->_options[$name] = $option;
 
 		return $option;
 	}

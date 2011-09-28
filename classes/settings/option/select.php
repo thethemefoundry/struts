@@ -18,4 +18,13 @@ class Settings_Option_Select extends Settings_Option {
 
 		echo $output;
 	}
+
+	protected function standard_validation( $value ) {
+		$valid_values = $this->valid_values();
+		if ( array_key_exists( $value, $valid_values ) ) {
+			return $value;
+		}
+
+		return $this->default_value();
+	}
 }

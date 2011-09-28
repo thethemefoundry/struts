@@ -1,7 +1,8 @@
 <?php
 
 abstract class Settings_Option {
-	protected $_name, $_valid_values, $_value, $_type, $_default_value, $_tab, $_label, $_description, $_parent_name;
+	protected $_name, $_valid_values, $_value, $_type, $_default_value,
+			  $_tab, $_label, $_description, $_parent_name, $_validation_function;
 
 	public function name( $name = NULL ) {
 		if ( NULL === $name )
@@ -84,6 +85,14 @@ abstract class Settings_Option {
 		return $this;
 	}
 
+	public function validation_function( $validation_function = NULL ) {
+		if ( NULL === $validation_function )
+			return $this->_validation_function;
+
+		$this->_validation_function = $validation_function;
+		return $this;
+	}
+
 	// The HTML ID takes the form 'parentname-optionname'
 	protected function html_id() {
 		return $this->parent_name() . '-' . $this->name();
@@ -105,5 +114,14 @@ abstract class Settings_Option {
 			$this->section() );
 	}
 
+	public function validate( $value ) {
+		if ( $validation_function = $this->validation_function() ) {
+			return $validation_function( $value );
+		} else {
+			return $this->standard_validation( $value );
+		}
+	}
+
 	abstract public function to_html();
+	abstract protected function standard_validation( $value );
 }

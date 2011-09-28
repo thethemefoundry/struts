@@ -8,4 +8,8 @@ class Settings_Option_Text extends Settings_Option {
 
 		echo "<input type='text' id='$id' name='$name' value='$value' />";
 	}
+
+	protected function standard_validation( $value ) {
+		return trim( $value );
+	}
 }
