@@ -119,10 +119,6 @@ class Settings_Collection {
 		$this->_sections[] = new Settings_Section( $id, $title, $description, $this->name() );
 	}
 
-	public function description_html() {
-		echo "<p>Figure out how to handle description callbacks</p>";
-	}
-
 	/**
 	 * Adds an option with the given name and type to this collection
 	 * Sets the option's parent_name to this collection's name, and returns the option
