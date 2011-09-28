@@ -101,7 +101,6 @@ class Settings_Collection {
 		}
 	}
 
-	//TODO: Actually validate input
 	public function validate( $inputs ) {
 		$validated_input = array();
 
