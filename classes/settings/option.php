@@ -103,8 +103,6 @@ abstract class Settings_Option {
 		return $this->parent_name() . '[' . $this->name() . ']';
 	}
 
-	//TODO: Other properties here
-
 	public function register() {
 		add_settings_field(
 			$this->name(),
