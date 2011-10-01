@@ -142,6 +142,12 @@ class Settings_Collection {
 		return $option;
 	}
 
+	public function get_value( $option_name ) {
+		$options = $this->options();
+		$option = $options[$option_name];
+		return $option->value();
+	}
+
 	/**
 	 * Returns the default values of all options in this collection as a hash
 	 *
