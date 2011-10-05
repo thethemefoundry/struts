@@ -175,8 +175,8 @@ class Settings_Collection {
 				settings_fields( $this->name() );
 				do_settings_sections( $this->name() );
 				?>
-				<input type="submit" class="button-primary" value="<?php esc_attr_e('Save Settings', 'react'); ?>" />
-				<input type="submit" class="button-secondary" value="<?php esc_attr_e('Reset Defaults', 'react'); ?>" />
+				<input type="submit" class="button-primary" value="<?php esc_attr_e('Save Settings'); ?>" />
+				<input type="submit" class="button-secondary" value="<?php esc_attr_e('Reset Defaults'); ?>" />
 			</form>
 		</div>
 	<?php }
