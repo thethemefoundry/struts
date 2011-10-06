@@ -1,8 +1,8 @@
-## Easy WordPress Theme Options
+## Struts is a simple theme options framework for WordPress.
 
 The goal of this library is to abstract away as much of the WordPress settings API as possible, and make setting up options a breeze!
 
-## Setup
+## Basic setup
 
 * Clone this repository
 * Symlink the 'classes' folder from this library into your functions folder in your theme
