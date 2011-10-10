@@ -9,6 +9,7 @@ class Settings_Collection {
 		$this->slug( $slug );
 		$this->name( $name );
 		$this->register_hooks();
+		$this->enqueue_scripts();
 	}
 
 	/***** Attribute accessors *****/
@@ -57,6 +58,30 @@ class Settings_Collection {
 		add_action( 'admin_init', array( &$this, 'register' ) );
 	}
 
+	public function enqueue_scripts() {
+		$enqueue_scripts =
+			is_admin() &&
+			current_user_can( 'edit_theme_options' ) &&
+			isset( $_GET['page'] ) &&
+			$_GET['page'] == $this->slug();
+
+		if ( $enqueue_scripts ) {
+			wp_enqueue_script( 'jquery' );
+			wp_enqueue_script( 'media-upload' );
+			wp_enqueue_script(
+				'struts-admin',
+				get_template_directory_uri() . '/includes/struts/javascripts/struts.js',
+				array( 'jquery', 'media-upload' ),
+				null
+			);
+			add_thickbox();
+			wp_enqueue_style(
+				'struts-admin',
+				get_template_directory_uri() . '/includes/struts/stylesheets/struts.css'
+			);
+		}
+	}
+
 	public function initialize() {
 		$option_values = get_option( $this->name() );
 
@@ -79,7 +104,7 @@ class Settings_Collection {
 			'Theme Options',
 			'Theme Options',
 			'edit_theme_options',
-			$this->slug() . '-settings',
+			$this->slug(),
 			array( &$this, 'echo_form_html' ) );
 	}
 

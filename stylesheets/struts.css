@@ -1,0 +1,8 @@
+.image-upload-preview {
+	max-width: 100px;
+	max-height: 100px;
+}
+.image-upload-preview img {
+	width: 100%;
+	height: auto;
+}
