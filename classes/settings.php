@@ -6,6 +6,7 @@ require( dirname( __FILE__ ) . '/settings/section.php' );
 require( dirname( __FILE__ ) . '/settings/option/text.php' );
 require( dirname( __FILE__ ) . '/settings/option/select.php' );
 require( dirname( __FILE__ ) . '/settings/option/image.php' );
+require( dirname( __FILE__ ) . '/settings/option/checkbox.php' );
 
 class Settings {
 
