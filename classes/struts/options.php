@@ -70,14 +70,14 @@ class Struts_Options {
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script(
 				'struts-admin',
-				Struts::config( 'uri' ) . '/javascripts/struts.js',
+				Struts::config( 'struts_root_uri' ) . '/javascripts/struts.js',
 				array( 'jquery', 'media-upload' ),
 				null
 			);
 			add_thickbox();
 			wp_enqueue_style(
 				'struts-admin',
-				Struts::config( 'uri' ) . '/stylesheets/struts.css'
+				Struts::config( 'struts_root_uri' ) . '/stylesheets/struts.css'
 			);
 		}
 	}
