@@ -22,4 +22,13 @@ jQuery(document).ready(function($) {
   jQuery('.struts-color-chooser').each(function() {
     jQuery(this).farbtastic('#' + jQuery(this).attr('data-field-id'));
   });
+
+  // hides as soon as the DOM is ready
+  jQuery( 'div.struts-section-body' ).hide();
+  // shows on clicking the noted link
+  jQuery( 'div.struts-section h3' ).click(function() {
+    jQuery(this).toggleClass("open");
+    jQuery(this).next("div").slideToggle( 'fast' );
+    return false;
+  });
 });

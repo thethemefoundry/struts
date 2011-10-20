@@ -24,11 +24,11 @@
 /*---------------------------------------------------------
 	TTF Options
 ------------------------------------------------------------ */
-div#ttf-options {
+div#struts-options {
 	width: 590px;
 	padding-bottom: 40px;
 }
-div#ttf-options-body {
+div#struts-options-body {
 	margin: 20px 0 0 0;
 	font-size: 12px;
 }
@@ -107,10 +107,10 @@ div.struts-section-body {
 	border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px;
 }
-div.ttf-field {
+div.struts-option {
 	margin: 30px 0;
 }
-div.ttf-field-d {
+div.struts-option-description {
 	float: right;
 	width: 270px;
 	padding: 10px;
@@ -121,24 +121,24 @@ div.ttf-field-d {
 	-o-border-radius: 3px;
 	border-radius: 3px;
 }
-div.ttf-field.text label,
-div.ttf-field.select label,
-div.ttf-field.textarea label,
-div.ttf-field.colorpicker label,
-div.ttf-field.logo-upload label {
+div.struts-option.text label,
+div.struts-option.select label,
+div.struts-option.textarea label,
+div.struts-option.color label,
+div.struts-option.image label {
 	display: block;
 	padding-bottom: 5px;
 }
-div.ttf-field.colorpicker label a {
+div.struts-option.color label a {
 	font-size: 11px;
 	text-decoration: none;
 	border-bottom: 1px dotted;
 }
-div.ttf-field.text input {
+div.struts-option.text input {
 	width: 200px;
 	padding: 5px;
 }
-div.ttf-field.textarea textarea {
+div.struts-option.textarea textarea {
 	width: 200px;
 	padding: 5px;
 	height: 100px;
@@ -152,20 +152,20 @@ div.farbtastic {
 
 /*Option buttons
 ---------------------------------------*/
-div.ttf-save-button.submit {
+div.struts-save-button.submit {
 	padding-top: 0;
 }
-div#ttf-options-body div.ttf-reset-button {
+div#struts-options-body div.struts-reset-button {
 	float: right;
 }
-div#ttf-options-body div.ttf-saveall-button {
+div#struts-options-body div.struts-saveall-button {
 	float: left;
 }
-div.ttf-field.logo-upload input.logo-image-input {
+div.struts-option.image input.image-input {
 	width: 200px;
 	padding: 5px;
 }
-div.ttf-field.logo-upload input.button {
+div.struts-option.image input.button {
 	margin-top: 7px;
 }
 
@@ -173,7 +173,7 @@ div.ttf-field.logo-upload input.button {
 	Classic admin colors
 ------------------------------------------------------------ */
 
-.admin-color-classic div.ttf-option h3 {
+.admin-color-classic div.struts-option h3 {
 	background-color: #f5fafd;
 	background-image: -ms-linear-gradient(top,#f7fcfe,#eff8ff);
 	background-image: -moz-linear-gradient(top,#f7fcfe,#eff8ff);
@@ -183,13 +183,13 @@ div.ttf-field.logo-upload input.button {
 	background-image: linear-gradient(top,#f7fcfe,#eff8ff);
 	border: 1px solid #d0dfe9;
 }
-.admin-color-classic div.ttf-option h3 {
+.admin-color-classic div.struts-option h3 {
 	color: #174f69;
 }
-.admin-color-classic div.ttf-option-body {
+.admin-color-classic div.struts-option-body {
 	background: #f7fcfe;
 	border: 1px solid #d0dfe9;
 }
-.admin-color-classic div.ttf-field-d {
+.admin-color-classic div.struts-option-description {
 	background: #e7f2f7;
 }

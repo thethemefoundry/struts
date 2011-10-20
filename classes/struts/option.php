@@ -103,6 +103,10 @@ abstract class Struts_Option {
 		return $this->parent_name() . '[' . $this->name() . ']';
 	}
 
+	protected function html_input_class() {
+		return strtolower( array_pop( explode( '_', get_class( $this ) ) ) );
+	}
+
 	public function register() {
 		add_settings_field(
 			$this->name(),
@@ -122,15 +126,22 @@ abstract class Struts_Option {
 
 	public function to_html() {
 		if ( ! Struts::config( 'use_settings_api_html' ) ) {
+			echo "<div class='struts-option {$this->html_input_class()}'>";
 			$this->label_html();
 		}
-		$this->input_html();
+
 		$this->description_html();
+		$this->input_html();
+
+		if ( ! Struts::config( 'use_settings_api_html' ) ) {
+			echo "</div>";
+		}
+
 	}
 
 	protected function description_html() {
 		if ( $this->description() ) {
-			echo "<div class='struts-description'>{$this->description()}</div>";
+			echo "<div class='struts-option-description'>{$this->description()}</div>";
 		}
 	}
 

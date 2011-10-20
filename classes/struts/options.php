@@ -227,16 +227,18 @@ class Struts_Options {
 	/***** HTML Output *****/
 
 	public function echo_form_html() { ?>
-		 <div class="wrap">
-			<?php echo $this->settings_updated_html(); ?>
-			<form action="options.php" method="post">
-				<?php
-				settings_fields( $this->name() );
-				$this->do_options_html();
-				?>
-				<input type="submit" class="button-primary" value="<?php esc_attr_e('Save Settings'); ?>" />
-				<input type="submit" class="button-secondary" value="<?php esc_attr_e('Reset Defaults'); ?>" />
-			</form>
+		<div id="struts-options" class="wrap">
+			<div id="struts-options-body">
+				<?php echo $this->settings_updated_html(); ?>
+				<form action="options.php" method="post">
+					<?php
+					settings_fields( $this->name() );
+					$this->do_options_html();
+					?>
+					<input type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e('Save Settings'); ?>" />
+					<input type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e('Reset Defaults'); ?>" />
+				</form>
+			</div>
 		</div>
 	<?php }
 
