@@ -120,6 +120,10 @@ abstract class Struts_Option {
 		}
 	}
 
+	protected function description_html() {
+		return "<div class='struts-description'>{$this->description()}</div>";
+	}
+
 	abstract public function to_html();
 	abstract protected function standard_validation( $value );
 }

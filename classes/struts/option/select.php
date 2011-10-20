@@ -17,6 +17,7 @@ class Struts_Option_Select extends Struts_Option {
 		$output .= "</select>";
 
 		echo $output;
+		echo $this->description_html();
 	}
 
 	protected function standard_validation( $value ) {

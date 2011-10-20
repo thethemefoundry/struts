@@ -7,6 +7,7 @@ class Struts_Option_Text extends Struts_Option {
 		$value = $this->value();
 
 		echo "<input type='text' id='$id' name='$name' value='$value' />";
+		echo $this->description_html();
 	}
 
 	protected function standard_validation( $value ) {

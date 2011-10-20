@@ -12,6 +12,7 @@ class Struts_Option_Image extends Struts_Option {
 		echo "<div id='{$id}-preview' class='image-upload-preview'>";
 		if ( $value ) { echo "<img src='$value'>"; }
 		echo "</div>";
+		echo $this->description_html();
 	}
 
 	protected function standard_validation( $value ) {
