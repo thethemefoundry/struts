@@ -31,4 +31,16 @@ jQuery(document).ready(function($) {
     jQuery(this).next("div").slideToggle( 'fast' );
     return false;
   });
+  jQuery( '.color-chooser-toggle' ).click(function() {
+    var colorchooser = jQuery(this).parent().next();
+
+    colorchooser.toggle();
+
+    if (colorchooser.is(':visible')) {
+      jQuery(this).text('hide color picker');
+    } else {
+      jQuery(this).text('show color picker');
+    }
+    return false;
+  });
 });

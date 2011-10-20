@@ -20,6 +20,15 @@ class Struts_Option_Color extends Struts_Option {
 		return $value;
 	}
 
+	protected function label_html() {
+		if ( $this->label() ) {
+			echo "<label class='struts-label' for='{$this->html_id()}'>{$this->label()} ";
+			echo '<a href="#" class="color-chooser-toggle">' . __( 'hide color picker', 'TODO' ) . '</a>';
+			echo "</label>";
+		}
+	}
+
+
 	/**
 	* Farbtastic requires a value to be set to function properly.
 	* We override the default_value function here to provide #FFFFFF as a default
