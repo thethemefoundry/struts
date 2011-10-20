@@ -1,4 +1,5 @@
 jQuery(document).ready(function($) {
+  // Image Upload Option
   jQuery('.struts-image-upload').click(function() {
     formfield = jQuery(this).attr('data-field-id');
     tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
@@ -16,4 +17,9 @@ jQuery(document).ready(function($) {
       window.original_send_to_editor(html);
     }
   }
+
+  // Color Chooser Option
+  jQuery('.struts-color-chooser').each(function() {
+    jQuery(this).farbtastic('#' + jQuery(this).attr('data-field-id'));
+  });
 });

@@ -68,13 +68,17 @@ class Struts_Options {
 		if ( $enqueue_scripts ) {
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'media-upload' );
+			wp_enqueue_script( 'farbtastic' );
 			wp_enqueue_script(
 				'struts-admin',
 				Struts::config( 'struts_root_uri' ) . '/javascripts/struts.js',
 				array( 'jquery', 'media-upload' ),
 				null
 			);
+
 			add_thickbox();
+
+			wp_enqueue_style( 'farbtastic' );
 			wp_enqueue_style(
 				'struts-admin',
 				Struts::config( 'struts_root_uri' ) . '/stylesheets/struts.css'
