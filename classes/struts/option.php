@@ -133,7 +133,7 @@ abstract class Struts_Option {
 		$this->description_html();
 		$this->input_html();
 
-		if ( ! Struts::config( 'use_struts_skin' ) ) {
+		if ( Struts::config( 'use_struts_skin' ) ) {
 			echo "</div>";
 		}
 

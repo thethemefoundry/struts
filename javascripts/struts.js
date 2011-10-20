@@ -31,7 +31,9 @@ jQuery(document).ready(function($) {
     jQuery(this).next("div").slideToggle( 'fast' );
     return false;
   });
-  jQuery( '.color-chooser-toggle' ).click(function() {
+
+  jQuery('.struts-color-chooser').hide();
+  jQuery( '.struts-color-chooser-toggle' ).click(function() {
     var colorchooser = jQuery(this).parent().next();
 
     colorchooser.toggle();

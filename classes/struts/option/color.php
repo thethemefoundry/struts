@@ -25,7 +25,7 @@ class Struts_Option_Color extends Struts_Option {
 	protected function label_html() {
 		if ( $this->label() ) {
 			echo "<label class='struts-label' for='{$this->html_id()}'>{$this->label()} ";
-			echo '<a href="#" class="color-chooser-toggle">' . __( 'hide color picker', 'TODO' ) . '</a>';
+			echo '<a href="#" class="struts-color-chooser-toggle">' . __( 'show color picker', 'TODO' ) . '</a>';
 			echo "</label>";
 		}
 	}

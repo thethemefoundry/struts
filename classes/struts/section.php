@@ -70,6 +70,7 @@ class Struts_Section {
 	public function add_option( Struts_Option $option ) {
 		$this->_options[$option->name()] = $option;
 	}
+
 	public function to_html() {
 		echo "<div class='struts-section'>";
 		echo "<h3>{$this->title()} <a href='#'>" . __( 'Edit', 'TODO' ) . '</a></h3>';
@@ -78,7 +79,10 @@ class Struts_Section {
 			$option->to_html();
 		}
 
-		echo "</div></div>";
+		echo '<div class="struts-save-button submit">';
+		echo '<input type="submit" class="button-primary struts-save-button" value="' . __( 'Save changes', 'TODO' ) . '" />';
+
+		echo "</div></div></div>";
 
 	}
 }
