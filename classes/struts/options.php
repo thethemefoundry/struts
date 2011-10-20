@@ -1,6 +1,6 @@
 <?php
 
-class Settings_Collection {
+class Struts_Options {
 	protected $_sections, $_options, $_name, $_slug;
 
 	public function __construct( $slug, $name ) {
@@ -70,14 +70,14 @@ class Settings_Collection {
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script(
 				'struts-admin',
-				get_template_directory_uri() . '/includes/struts/javascripts/struts.js',
+				Struts::config( 'uri' ) . '/javascripts/struts.js',
 				array( 'jquery', 'media-upload' ),
 				null
 			);
 			add_thickbox();
 			wp_enqueue_style(
 				'struts-admin',
-				get_template_directory_uri() . '/includes/struts/stylesheets/struts.css'
+				Struts::config( 'uri' ) . '/stylesheets/struts.css'
 			);
 		}
 	}
@@ -141,7 +141,7 @@ class Settings_Collection {
 	 *
 	 */
 	public function add_section( $id, $title, $description = NULL ) {
-		$this->_sections[] = new Settings_Section( $id, $title, $description, $this->name() );
+		$this->_sections[] = new Struts_Section( $id, $title, $description, $this->name() );
 	}
 
 	/**
@@ -152,10 +152,10 @@ class Settings_Collection {
 	 * @param $type - type of option (text/select/checkbox/etc)
 	 * @param $section - name of the section this option goes in
 	 *
-	 * @return Settings_Option
+	 * @return Struts_Option
 	 */
 	public function add_option( $name, $type, $section = NULL ) {
-		$option_class = 'Settings_Option_' . ucfirst( $type );
+		$option_class = 'Struts_Option_' . ucfirst( $type );
 
 		$option = new $option_class;
 		$option->name( $name );

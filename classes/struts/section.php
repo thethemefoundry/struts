@@ -1,6 +1,6 @@
 <?php
 
-class Settings_Section {
+class Struts_Section {
 	protected $_id, $_title, $_description, $_parent_name;
 
 	public function __construct( $id, $title, $description, $parent_name ) {

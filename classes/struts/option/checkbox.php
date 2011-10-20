@@ -1,6 +1,6 @@
 <?php
 
-class Settings_Option_Checkbox extends Settings_Option {
+class Struts_Option_Checkbox extends Struts_Option {
 
 	public function to_html() {
 		$id = $this->html_id();
