@@ -75,9 +75,12 @@ class Struts_Options {
 
 	public function enqueue_scripts() {
 		$enqueue_scripts =
-			is_admin() &&
-			current_user_can( 'edit_theme_options' ) &&
-			isset( $_GET['page'] ) &&
+			is_admin()
+			&&
+			current_user_can( 'edit_theme_options' )
+			&&
+			isset( $_GET['page'] )
+			&&
 			$_GET['page'] == $this->slug();
 
 		if ( $enqueue_scripts ) {
@@ -94,10 +97,13 @@ class Struts_Options {
 			add_thickbox();
 
 			wp_enqueue_style( 'farbtastic' );
-			wp_enqueue_style(
-				'struts-admin',
-				Struts::config( 'struts_root_uri' ) . '/stylesheets/struts.css'
-			);
+
+			if ( Struts::config( 'use_struts_skin' ) ) {
+				wp_enqueue_style(
+					'struts-admin',
+					Struts::config( 'struts_root_uri' ) . '/stylesheets/struts.css'
+				);
+			}
 		}
 	}
 
@@ -249,7 +255,7 @@ class Struts_Options {
 
 	public function do_options_html() {
 
-		if ( Struts::config( 'use_settings_api_html' ) ) {
+		if ( ! Struts::config( 'use_struts_skin' ) ) {
 			do_settings_sections( $this->name() );
 			return;
 		}

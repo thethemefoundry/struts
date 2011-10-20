@@ -125,7 +125,7 @@ abstract class Struts_Option {
 	}
 
 	public function to_html() {
-		if ( ! Struts::config( 'use_settings_api_html' ) ) {
+		if ( Struts::config( 'use_struts_skin' ) ) {
 			echo "<div class='struts-option {$this->html_input_class()}'>";
 			$this->label_html();
 		}
@@ -133,7 +133,7 @@ abstract class Struts_Option {
 		$this->description_html();
 		$this->input_html();
 
-		if ( ! Struts::config( 'use_settings_api_html' ) ) {
+		if ( ! Struts::config( 'use_struts_skin' ) ) {
 			echo "</div>";
 		}
 

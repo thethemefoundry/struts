@@ -7,6 +7,7 @@ class Struts_Option_Color extends Struts_Option {
 		$name = $this->html_name();
 		$default_value = $this->default_value() ? $this->default_value() : '#FFFFFF';
 		$value = $this->value() ? $this->value() : $this->default_value();
+		$value = esc_attr( $value );
 
 		echo "<div id='{$id}-color-chooser' class='struts-color-chooser' data-field-id='$id'></div>";
 		echo "<input type='text' id='$id' name='$name' value='$value' class='struts-color-chooser-input' />";
@@ -14,9 +15,10 @@ class Struts_Option_Color extends Struts_Option {
 
 	protected function standard_validation( $value ) {
 		// Color must be in hex format
-		if ( '#' !== substr( $value, 0, 1 ) ) {
+		if ( '#' !== substr( $value, 0, 1 ) || ! ctype_xdigit( substr( $value, 1 ) ) ) {
 			return $this->default_value();
 		}
+
 		return $value;
 	}
 
@@ -27,7 +29,6 @@ class Struts_Option_Color extends Struts_Option {
 			echo "</label>";
 		}
 	}
-
 
 	/**
 	* Farbtastic requires a value to be set to function properly.

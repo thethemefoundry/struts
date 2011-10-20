@@ -11,6 +11,8 @@ class Struts_Option_Select extends Struts_Option {
 			// If this value is selected, mark it so
 			$selected = selected( $this->value(), $value, false );
 
+			$value = esc_attr( $value );
+
 			$output .= "<option value='$value' $selected >$text</option>";
 		}
 
