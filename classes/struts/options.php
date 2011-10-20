@@ -1,11 +1,12 @@
 <?php
 
 class Struts_Options {
-	protected $_sections, $_options, $_name, $_slug;
+	protected $_sections, $_all_options, $_name, $_slug, $_stranded_options;
 
 	public function __construct( $slug, $name ) {
 		$this->sections( array() );
-		$this->options( array() );
+		$this->all_options( array() );
+		$this->stranded_options( array() );
 		$this->slug( $slug );
 		$this->name( $name );
 		$this->register_hooks();
@@ -13,6 +14,8 @@ class Struts_Options {
 	}
 
 	/***** Attribute accessors *****/
+
+	// Sections are containers for options
 	public function sections( $sections = NULL ) {
 		if ( NULL === $sections )
 			return $this->_sections;
@@ -22,11 +25,23 @@ class Struts_Options {
 		return $this;
 	}
 
-	public function options( $options = NULL ) {
-		if ( NULL === $options )
-			return $this->_options;
+	// Every option added, regardless of whether it was added to a section or not.
+	// This is useful for efficiently setting/getting option values without scanning all sections.
+	public function all_options( $all_options = NULL ) {
+		if ( NULL === $all_options )
+			return $this->_all_options;
 
-		$this->_options = $options;
+		$this->_all_options = $all_options;
+
+		return $this;
+	}
+
+	// All options without a section.
+	public function stranded_options( $stranded_options = NULL ) {
+		if ( NULL === $stranded_options )
+			return $this->_stranded_options;
+
+		$this->_stranded_options = $stranded_options;
 
 		return $this;
 	}
@@ -95,7 +110,7 @@ class Struts_Options {
 		update_option( $this->name(), $option_values );
 
 		foreach ( $option_values as $name => $value ) {
-			foreach ( $this->_options as $option ) {
+			foreach ( $this->all_options() as $option ) {
 				if ( $option->name() == $name ){
 					$option->value($value);
 				}
@@ -115,11 +130,11 @@ class Struts_Options {
 	public function register() {
 		register_setting( $this->name(), $this->name(), array( &$this, 'validate' ) );
 		$this->register_sections();
-		$this->register_options();
+		$this->register_stranded_options();
 	}
 
-	protected function register_options() {
-		foreach( $this->options() as $option ) {
+	protected function register_stranded_options() {
+		foreach( $this->stranded_options() as $option ) {
 			$option->register();
 		}
 	}
@@ -134,7 +149,10 @@ class Struts_Options {
 		$validated_input = array();
 
 		foreach ( $inputs as $key => $value ) {
-			$option = $this->_options[$key];
+			$all_options = $this->all_options();
+
+			$option = $all_options[$key];
+
 			$validated_input[$key] = $option->validate( $value );
 		}
 
@@ -145,7 +163,7 @@ class Struts_Options {
 	 *
 	 */
 	public function add_section( $id, $title, $description = NULL ) {
-		$this->_sections[] = new Struts_Section( $id, $title, $description, $this->name() );
+		$this->_sections[$id] = new Struts_Section( $id, $title, $description, $this->name() );
 	}
 
 	/**
@@ -164,15 +182,27 @@ class Struts_Options {
 		$option = new $option_class;
 		$option->name( $name );
 		$option->parent_name( $this->name() );
-		$option->section( $section );
 
-		$this->_options[$name] = $option;
+		if ( NULL !== $section ) {
+			$sections = $this->sections();
+			if ( ! isset( $sections[$section] ) ) {
+				throw new SectionNotFoundException("Section with name '$section' not defined");
+			}
+
+			$option->section( $section );
+			$sections[$section]->add_option($option);
+		} else {
+			// No section provided
+			$this->_stranded_options[$name] = $option;
+		}
+
+		$this->_all_options[$name] = $option;
 
 		return $option;
 	}
 
 	public function get_value( $option_name ) {
-		$options = $this->options();
+		$options = $this->all_options();
 		$option = $options[$option_name];
 		return $option->value();
 	}
@@ -185,7 +215,7 @@ class Struts_Options {
 	public function defaults() {
 		$defaults = array();
 
-		$options = $this->options();
+		$options = $this->all_options();
 
 		foreach( $options as $option ) {
 			$defaults[ $option->name() ] = $option->default_value();
@@ -202,7 +232,7 @@ class Struts_Options {
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( $this->name() );
-				do_settings_sections( $this->name() );
+				$this->do_options_html();
 				?>
 				<input type="submit" class="button-primary" value="<?php esc_attr_e('Save Settings'); ?>" />
 				<input type="submit" class="button-secondary" value="<?php esc_attr_e('Reset Defaults'); ?>" />
@@ -214,6 +244,27 @@ class Struts_Options {
 		if ( isset( $_GET['settings-updated'] ) )
 			return "<div class='updated'><p>Theme settings updated successfully.</p></div>";
 	}
+
+	public function do_options_html() {
+
+		if ( Struts::config( 'use_settings_api_html' ) ) {
+			do_settings_sections( $this->name() );
+			return;
+		}
+
+		$output = "";
+
+		foreach ( $this->sections() as $section ) {
+			$output .= $section->to_html();
+		}
+
+		foreach ( $this->stranded_options() as $option ) {
+			$output .= $option->to_html();
+		}
+
+		echo $output;
+	}
+
 }
 
 class SectionNotFoundException extends Exception { }

@@ -8,7 +8,11 @@ class Struts {
 	}
 
 	static public function config( $name ) {
-		return self::$_config[$name];
+		if ( isset( self::$_config[$name] ) ) {
+			return self::$_config[$name];
+		} else {
+			return NULL;
+		}
 	}
 }
 

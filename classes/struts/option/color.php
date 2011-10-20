@@ -2,7 +2,7 @@
 
 class Struts_Option_Color extends Struts_Option {
 
-	public function to_html() {
+	public function input_html() {
 		$id = $this->html_id();
 		$name = $this->html_name();
 		$default_value = $this->default_value() ? $this->default_value() : '#FFFFFF';
@@ -10,7 +10,6 @@ class Struts_Option_Color extends Struts_Option {
 
 		echo "<input type='text' id='$id' name='$name' value='$value' class='struts-color-chooser-input' />";
 		echo "<div id='{$id}-color-chooser' class='struts-color-chooser' data-field-id='$id'></div>";
-		echo $this->description_html();
 	}
 
 	protected function standard_validation( $value ) {

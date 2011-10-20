@@ -1,7 +1,7 @@
 <?php
 
 class Struts_Option_Select extends Struts_Option {
-	public function to_html() {
+	public function input_html() {
 		$id = $this->html_id();
 		$name = $this->html_name();
 
@@ -17,7 +17,6 @@ class Struts_Option_Select extends Struts_Option {
 		$output .= "</select>";
 
 		echo $output;
-		echo $this->description_html();
 	}
 
 	protected function standard_validation( $value ) {

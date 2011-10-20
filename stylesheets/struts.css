@@ -6,6 +6,190 @@
 	width: 100%;
 	height: auto;
 }
-body{
-  font-size: 2em;
+
+/*---------------------------------------------------------
+	Clear floats
+------------------------------------------------------------ */
+.clear:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clear {
+	zoom: 1;
+}
+
+/*---------------------------------------------------------
+	TTF Options
+------------------------------------------------------------ */
+div#ttf-options {
+	width: 590px;
+	padding-bottom: 40px;
+}
+div#ttf-options-body {
+	margin: 20px 0 0 0;
+	font-size: 12px;
+}
+
+/*Option box titles
+---------------------------------------*/
+div.struts-section h3 {
+	position: relative;
+	margin: 10px 0 0 0;
+	padding: 10px 35px 10px 15px;
+	font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
+	font-weight: normal;
+	font-size: 15px;
+	background-color: #f1f1f1;
+	background-image: -ms-linear-gradient(top,#f9f9f9,#ececec);
+	background-image: -moz-linear-gradient(top,#f9f9f9,#ececec);
+	background-image: -o-linear-gradient(top,#f9f9f9,#ececec);
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#f9f9f9),to(#ececec));
+	background-image: -webkit-linear-gradient(top,#f9f9f9,#ececec);
+	background-image: linear-gradient(top,#f9f9f9,#ececec);
+	border: 1px solid #dfdfdf;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+div.struts-section h3.open {
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 0;
+	-webkit-border-bottom-left-radius: 0;
+	-moz-border-radius-bottomright: 0;
+	-moz-border-radius-bottomleft: 0;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+div.struts-section h3 a {
+	display: block;
+	position: absolute;
+	right: 8px;
+	top: 11px;
+	width: 18px;
+	height: 18px;
+	overflow: hidden;
+	text-indent: -999em;
+	background-image: url(images/arrows.png);
+}
+div.struts-section h3 a:hover,
+div.struts-section h3:hover a {
+	background-image: url(images/arrows-dark.png);
+}
+div.struts-section h3 span {
+	font-size: 12px;
+	font-weight: normal;
+	float: right;
+	color: #aaa;
+}
+
+/*Option body
+---------------------------------------*/
+div.struts-section-body {
+	margin: 0;
+	padding: 5px 15px 0 15px;
+	background: #fcfcfc;
+	border: 1px solid #e6e6e6;
+	border-top: none;
+	-webkit-border-bottom-right-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+div.ttf-field {
+	margin: 30px 0;
+}
+div.ttf-field-d {
+	float: right;
+	width: 270px;
+	padding: 10px;
+	background: #f1f1f1;
+	color: #777;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+div.ttf-field.text label,
+div.ttf-field.select label,
+div.ttf-field.textarea label,
+div.ttf-field.colorpicker label,
+div.ttf-field.logo-upload label {
+	display: block;
+	padding-bottom: 5px;
+}
+div.ttf-field.colorpicker label a {
+	font-size: 11px;
+	text-decoration: none;
+	border-bottom: 1px dotted;
+}
+div.ttf-field.text input {
+	width: 200px;
+	padding: 5px;
+}
+div.ttf-field.textarea textarea {
+	width: 200px;
+	padding: 5px;
+	height: 100px;
+}
+div.farbtastic {
+	margin: 10px 0;
+}
+.updated, .error {
+	margin: 5px 15px 2px 0;
+}
+
+/*Option buttons
+---------------------------------------*/
+div.ttf-save-button.submit {
+	padding-top: 0;
+}
+div#ttf-options-body div.ttf-reset-button {
+	float: right;
+}
+div#ttf-options-body div.ttf-saveall-button {
+	float: left;
+}
+div.ttf-field.logo-upload input.logo-image-input {
+	width: 200px;
+	padding: 5px;
+}
+div.ttf-field.logo-upload input.button {
+	margin-top: 7px;
+}
+
+/*---------------------------------------------------------
+	Classic admin colors
+------------------------------------------------------------ */
+
+.admin-color-classic div.ttf-option h3 {
+	background-color: #f5fafd;
+	background-image: -ms-linear-gradient(top,#f7fcfe,#eff8ff);
+	background-image: -moz-linear-gradient(top,#f7fcfe,#eff8ff);
+	background-image: -o-linear-gradient(top,#f7fcfe,#eff8ff);
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#f7fcfe),to(#eff8ff));
+	background-image: -webkit-linear-gradient(top,#f7fcfe,#eff8ff);
+	background-image: linear-gradient(top,#f7fcfe,#eff8ff);
+	border: 1px solid #d0dfe9;
+}
+.admin-color-classic div.ttf-option h3 {
+	color: #174f69;
+}
+.admin-color-classic div.ttf-option-body {
+	background: #f7fcfe;
+	border: 1px solid #d0dfe9;
+}
+.admin-color-classic div.ttf-field-d {
+	background: #e7f2f7;
 }

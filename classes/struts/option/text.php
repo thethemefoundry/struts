@@ -1,13 +1,12 @@
 <?php
 
 class Struts_Option_Text extends Struts_Option {
-	public function to_html() {
+	public function input_html() {
 		$id = $this->html_id();
 		$name = $this->html_name();
 		$value = $this->value();
 
 		echo "<input type='text' id='$id' name='$name' value='$value' />";
-		echo $this->description_html();
 	}
 
 	protected function standard_validation( $value ) {

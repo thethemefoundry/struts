@@ -1,7 +1,7 @@
 <?php
 
 class Struts_Section {
-	protected $_id, $_title, $_description, $_parent_name;
+	protected $_id, $_title, $_description, $_parent_name, $_options;
 
 	public function __construct( $id, $title, $description, $parent_name ) {
 		$this->id( $id );
@@ -52,5 +52,33 @@ class Struts_Section {
 			$this->title(),
 			array( &$this, 'description_html' ),
 			$this->parent_name() );
+
+		foreach ( $this->options() as $option ) {
+			$option->register();
+		}
+	}
+
+	public function options( $options = NULL ) {
+		if ( NULL === $options )
+			return $this->_options;
+
+		$this->_options = $options;
+
+		return $this;
+	}
+
+	public function add_option( Struts_Option $option ) {
+		$this->_options[$option->name()] = $option;
+	}
+	public function to_html() {
+		echo "<div class='struts-section'>";
+		echo "<h3>{$this->title()} <a href='#'>" . __( 'Edit', 'TODO' ) . '</a></h3>';
+		echo "<div class='struts-section-body clear'>";
+		foreach ( $this->options() as $option ) {
+			$option->to_html();
+		}
+
+		echo "</div></div>";
+
 	}
 }

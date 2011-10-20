@@ -120,10 +120,26 @@ abstract class Struts_Option {
 		}
 	}
 
-	protected function description_html() {
-		return "<div class='struts-description'>{$this->description()}</div>";
+	public function to_html() {
+		if ( ! Struts::config( 'use_settings_api_html' ) ) {
+			$this->label_html();
+		}
+		$this->input_html();
+		$this->description_html();
 	}
 
-	abstract public function to_html();
+	protected function description_html() {
+		if ( $this->description() ) {
+			echo "<div class='struts-description'>{$this->description()}</div>";
+		}
+	}
+
+	protected function label_html() {
+		if ( $this->label() ) {
+			echo "<label class='struts-label' for='{$this->html_id()}'>{$this->label()}</label>";
+		}
+	}
+
+	abstract protected function input_html();
 	abstract protected function standard_validation( $value );
 }
