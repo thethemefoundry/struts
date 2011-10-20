@@ -25,6 +25,6 @@ spl_autoload_register( 'struts_autoloader' );
 // By default, check for a config file located at the root of Struts (typically struts/config.php)
 $config_filename = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config.php';
 
-if ( file_exists( config_filename ) ) {
-	Struts::load_config( $config_filename );
+if ( file_exists( $config_filename ) ) {
+	Struts::load_config( include $config_filename );
 }
