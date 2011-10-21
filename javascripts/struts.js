@@ -12,7 +12,6 @@ jQuery(document).ready(function($) {
       source = jQuery(html).find('img').attr('src');
       jQuery('#'+formfield).val(source);
       tb_remove();
-      jQuery('#'+formfield+'-preview').html('<img src="' + source + '">');
     }else{
       window.original_send_to_editor(html);
     }
