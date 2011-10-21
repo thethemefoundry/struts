@@ -22,4 +22,11 @@ class Struts_Option_Checkbox extends Struts_Option {
 	protected function standard_validation( $value ) {
 		return (boolean) $value;
 	}
+
+	protected function base_html() {
+		$this->description_html();
+		$this->input_html();
+		echo " ";
+		if ( Struts::config( 'use_struts_skin' ) ) { $this->label_html(); }
+	}
 }

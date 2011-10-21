@@ -155,10 +155,10 @@ div.farbtastic {
 div.struts-save-button.submit {
 	padding-top: 0;
 }
-div#struts-options-body div.struts-reset-button {
+div#struts-options-body .struts-reset-button {
 	float: right;
 }
-div#struts-options-body div.struts-saveall-button {
+div#struts-options-body .struts-saveall-button {
 	float: left;
 }
 div.struts-option.image input.image-input {
@@ -167,6 +167,9 @@ div.struts-option.image input.image-input {
 }
 div.struts-option.image input.button {
 	margin-top: 7px;
+}
+div.struts-buttons-container {
+	padding: 1.5em 0;
 }
 
 /*---------------------------------------------------------

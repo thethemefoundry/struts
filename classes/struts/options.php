@@ -241,8 +241,10 @@ class Struts_Options {
 					settings_fields( $this->name() );
 					$this->do_options_html();
 					?>
-					<input type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e('Save Settings'); ?>" />
-					<input type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e('Reset Defaults'); ?>" />
+					<div class="struts-buttons-container">
+						<input type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e('Save Settings'); ?>" />
+						<input type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e('Reset Defaults'); ?>" />
+					</div>
 				</form>
 			</div>
 		</div>
@@ -260,17 +262,13 @@ class Struts_Options {
 			return;
 		}
 
-		$output = "";
-
 		foreach ( $this->sections() as $section ) {
-			$output .= $section->to_html();
+			$section->to_html();
 		}
 
 		foreach ( $this->stranded_options() as $option ) {
-			$output .= $option->to_html();
+			$option->to_html();
 		}
-
-		echo $output;
 	}
 
 }

@@ -127,16 +127,19 @@ abstract class Struts_Option {
 	public function to_html() {
 		if ( Struts::config( 'use_struts_skin' ) ) {
 			echo "<div class='struts-option {$this->html_input_class()}'>";
-			$this->label_html();
 		}
 
-		$this->description_html();
-		$this->input_html();
+		$this->base_html();
 
 		if ( Struts::config( 'use_struts_skin' ) ) {
 			echo "</div>";
 		}
+	}
 
+	protected function base_html() {
+		$this->description_html();
+		if ( Struts::config( 'use_struts_skin' ) ) { $this->label_html(); }
+		$this->input_html();
 	}
 
 	protected function description_html() {
