@@ -73,14 +73,14 @@ class Struts_Section {
 
 	public function to_html() {
 		echo "<div class='struts-section'>";
-		echo "<h3>{$this->title()} <a href='#'>" . __( 'Edit', 'TODO' ) . '</a></h3>';
+		echo "<h3>{$this->title()} <a href='#'>" . __( 'Edit' ) . '</a></h3>';
 		echo "<div class='struts-section-body clear'>";
 		foreach ( $this->options() as $option ) {
 			$option->to_html();
 		}
 
 		echo '<div class="struts-save-button submit">';
-		echo '<input type="submit" class="button-primary struts-save-button" value="' . __( 'Save changes', 'TODO' ) . '" />';
+		echo '<input type="submit" class="button-primary struts-save-button" value="' . __( 'Save changes' ) . '" />';
 
 		echo "</div></div></div>";
 
