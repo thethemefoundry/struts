@@ -12,6 +12,6 @@ class Struts_Option_Image extends Struts_Option {
 	}
 
 	protected function standard_validation( $value ) {
-		return $value;
+		return trim( $value );
 	}
 }
