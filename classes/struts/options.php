@@ -242,8 +242,8 @@ class Struts_Options {
 					$this->do_options_html();
 					?>
 					<div class="struts-buttons-container">
-						<input type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e('Save Settings'); ?>" />
-						<input type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e('Reset Defaults'); ?>" />
+						<input type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />
+						<input type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e( 'Reset Defaults', 'struts' ); ?>" />
 					</div>
 				</form>
 			</div>
@@ -252,7 +252,7 @@ class Struts_Options {
 
 	public function settings_updated_html() {
 		if ( isset( $_GET['settings-updated'] ) )
-			return "<div class='updated'><p>Theme settings updated successfully.</p></div>";
+			return "<div class='updated'><p>" . __( "Theme settings updated successfully.", 'struts' ) . "</p></div>";
 	}
 
 	public function do_options_html() {
