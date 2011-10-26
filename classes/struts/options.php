@@ -234,18 +234,22 @@ class Struts_Options {
 
 	public function echo_form_html() { ?>
 		<div id="struts-options" class="wrap">
-			<div id="struts-options-body">
-				<?php echo $this->settings_updated_html(); ?>
-				<form action="options.php" method="post">
-					<?php
-					settings_fields( $this->name() );
-					$this->do_options_html();
-					?>
-					<div class="struts-buttons-container">
-						<input type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />
-						<input type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e( 'Reset Defaults', 'struts' ); ?>" />
-					</div>
-				</form>
+			<div id="icon-themes" class="icon32"><br></div>
+			<h2><?php _e( 'Theme Options', 'struts' ); ?></h2>
+			<div id="struts-options" class="wrap">
+				<div id="struts-options-body">
+					<?php echo $this->settings_updated_html(); ?>
+					<form action="options.php" method="post">
+						<?php
+							settings_fields( $this->name() );
+							$this->do_options_html();
+						?>
+						<div class="struts-buttons-container">
+							<input type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />
+							<input type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e( 'Reset Defaults', 'struts' ); ?>" />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	<?php }
