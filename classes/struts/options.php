@@ -68,7 +68,7 @@ class Struts_Options {
 
 	public function register_hooks() {
 		// Load the Admin Options page
-		add_action( 'admin_menu', array( &$this, 'add_options_page' ) );
+		add_action( 'admin_menu', array( &$this, 'add_theme_options_page' ) );
 		// Register the sections and options
 		add_action( 'admin_init', array( &$this, 'register' ) );
 	}
@@ -124,7 +124,7 @@ class Struts_Options {
 		}
 	}
 
-	public function add_options_page() {
+	public function add_theme_options_page() {
 		add_theme_page(
 			'Theme Options',
 			'Theme Options',
