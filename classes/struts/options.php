@@ -209,8 +209,12 @@ class Struts_Options {
 
 	public function get_value( $option_name ) {
 		$options = $this->all_options();
-		$option = $options[$option_name];
-		return $option->value();
+		if ( isset( $options[$option_name] ) ) {
+			$option = $options[$option_name];
+			return $option->value();
+		} else {
+			return NULL;
+		}
 	}
 
 	/**
@@ -223,7 +227,7 @@ class Struts_Options {
 
 		$options = $this->all_options();
 
-		foreach( $options as $option ) {
+		foreach ( $options as $option ) {
 			$defaults[ $option->name() ] = $option->default_value();
 		}
 
