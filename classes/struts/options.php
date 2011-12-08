@@ -10,7 +10,6 @@ class Struts_Options {
 		$this->slug( $slug );
 		$this->name( $name );
 		$this->register_hooks();
-		$this->enqueue_scripts();
 	}
 
 	/***** Attribute accessors *****/
@@ -71,6 +70,8 @@ class Struts_Options {
 		add_action( 'admin_menu', array( &$this, 'add_theme_options_page' ) );
 		// Register the sections and options
 		add_action( 'admin_init', array( &$this, 'register' ) );
+		// Enqueue the styles and scripts
+		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 	}
 
 	public function enqueue_scripts() {
