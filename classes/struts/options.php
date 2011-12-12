@@ -155,12 +155,17 @@ class Struts_Options {
 	public function validate( $inputs ) {
 		$validated_input = array();
 
-		foreach ( $inputs as $key => $value ) {
+		if ( isset( $inputs['struts_reset'] ) ) {
+			$validated_input = $this->defaults();
+		} else {
 			$all_options = $this->all_options();
 
-			$option = $all_options[$key];
-
-			$validated_input[$key] = $option->validate( $value );
+			foreach ( $inputs as $key => $value ) {
+				if ( isset(  $all_options[$key] ) ) {
+					$option = $all_options[$key];
+					$validated_input[$key] = $option->validate( $value );
+				}
+			}
 		}
 
 		return $validated_input;
@@ -250,8 +255,8 @@ class Struts_Options {
 							$this->do_options_html();
 						?>
 						<div class="struts-buttons-container">
-							<input type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />
-							<input type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e( 'Reset Defaults', 'struts' ); ?>" />
+							<input name="<?php echo $this->name(); ?>[struts_submit]" type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />
+							<input name="<?php echo $this->name(); ?>[struts_reset]" type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e( 'Reset Defaults', 'struts' ); ?>" onclick="return confirm('Click OK if you want to reset your theme options to the defaults.')" />
 						</div>
 					</form>
 				</div>
