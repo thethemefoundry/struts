@@ -116,11 +116,11 @@ class Struts_Options {
 		}
 		update_option( $this->name(), $option_values );
 
-		foreach ( $option_values as $name => $value ) {
-			foreach ( $this->all_options() as $option ) {
-				if ( $option->name() == $name ){
-					$option->value($value);
-				}
+		foreach ( $this->all_options() as $option ) {
+			if ( isset( $option_values[$option->name()] ) ) {
+				$option->value( $option_values[$option->name()] );
+			} else {
+				$option->value( $option->default_value() );
 			}
 		}
 	}
