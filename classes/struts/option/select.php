@@ -2,8 +2,8 @@
 
 class Struts_Option_Select extends Struts_Option {
 	public function input_html() {
-		$id = $this->html_id();
-		$name = $this->html_name();
+		$id = esc_attr( $this->html_id() );
+		$name = esc_attr( $this->html_name() );
 
 		$output = "<select id='$id' name='$name'>";
 

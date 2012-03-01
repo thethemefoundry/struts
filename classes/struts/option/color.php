@@ -3,9 +3,12 @@
 class Struts_Option_Color extends Struts_Option {
 
 	public function input_html() {
-		$id = $this->html_id();
-		$name = $this->html_name();
+		$id = esc_attr( $this->html_id() );
+		$name = esc_attr( $this->html_name() );
+
 		$default_value = $this->default_value() ? $this->default_value() : '#FFFFFF';
+		$default_value = esc_attr( $default_value );
+
 		$value = $this->value() ? $this->value() : $this->default_value();
 		$value = esc_attr( $value );
 
@@ -24,7 +27,7 @@ class Struts_Option_Color extends Struts_Option {
 
 	protected function label_html() {
 		if ( $this->label() ) {
-			echo "<label class='struts-label' for='{$this->html_id()}'>{$this->label()} ";
+			echo '<label class="struts-label" for="' . esc_attr( $this->html_id() ) . '">' . $this->label() . ' ';
 			echo '<a href="#" class="struts-color-chooser-toggle">' . __( 'show color picker', 'struts' ) . '</a>';
 			echo "</label>";
 		}

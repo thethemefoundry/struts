@@ -126,7 +126,7 @@ abstract class Struts_Option {
 
 	public function to_html() {
 		if ( Struts::config( 'use_struts_skin' ) ) {
-			echo "<div class='clear struts-option {$this->html_input_class()}'>";
+			echo '<div class="' . esc_attr( 'clear struts-option ' . $this->html_input_class() ) . '">';
 		}
 
 		$this->base_html();
@@ -150,7 +150,7 @@ abstract class Struts_Option {
 
 	protected function label_html() {
 		if ( $this->label() ) {
-			echo "<label class='struts-label' for='{$this->html_id()}'>{$this->label()}</label>";
+			echo '<label class="struts-label" for="' . esc_attr( $this->html_id() ) . '">' . $this->label() . '</label>';
 		}
 	}
 

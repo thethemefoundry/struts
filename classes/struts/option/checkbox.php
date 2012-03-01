@@ -3,8 +3,8 @@
 class Struts_Option_Checkbox extends Struts_Option {
 
 	public function input_html() {
-		$id = $this->html_id();
-		$name = $this->html_name();
+		$id = esc_attr( $this->html_id() );
+		$name = esc_attr( $this->html_name() );
 		$checked = $this->value() ? "checked='checked' " : '';
 
 		echo "<input type='checkbox' id='$id' name='$name' value='1' $checked/>";

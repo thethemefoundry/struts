@@ -127,8 +127,8 @@ class Struts_Options {
 
 	public function add_theme_options_page() {
 		add_theme_page(
-			'Theme Options',
-			'Theme Options',
+			__( 'Theme Options', 'struts' ),
+			__( 'Theme Options', 'struts' ),
 			'edit_theme_options',
 			$this->slug(),
 			array( &$this, 'echo_form_html' ) );
@@ -198,7 +198,7 @@ class Struts_Options {
 		if ( NULL !== $section ) {
 			$sections = $this->sections();
 			if ( ! isset( $sections[$section] ) ) {
-				throw new SectionNotFoundException("Section with name '$section' not defined");
+				throw new SectionNotFoundException( sprintf( __( 'Section with name &lsquo;%1$s&rsquo; not defined', 'struts' ), esc_html( $section ) ) );
 			}
 
 			$option->section( $section );
