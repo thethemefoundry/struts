@@ -119,6 +119,10 @@ class Struts_Options {
 		foreach ( $this->all_options() as $option ) {
 			if ( isset( $option_values[$option->name()] ) ) {
 				$option->value( $option_values[$option->name()] );
+			} elseif ( ! isset( $option_values[$option->name()] ) && $option->default_value() === true ) {
+				// In the case of checkboxes if the value is empty and the default is true we need
+				// to explicitly set the false value here to prevent the default from always being set.
+				$option->value( false );
 			} else {
 				$option->value( $option->default_value() );
 			}
