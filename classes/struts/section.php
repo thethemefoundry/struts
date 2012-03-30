@@ -72,7 +72,7 @@ class Struts_Section {
 	}
 
 	public function to_html() {
-		echo "<div class='struts-section'>";
+		echo "<div id='{$this->id()}' class='struts-section'>";
 		echo "<h3>{$this->title()} <a href='#'>" . __( 'Edit', 'struts' ) . '</a></h3>';
 		echo "<div class='struts-section-body clear'>";
 		foreach ( $this->options() as $option ) {
