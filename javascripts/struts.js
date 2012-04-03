@@ -44,4 +44,33 @@ jQuery(document).ready(function($) {
     }
     return false;
   });
+  
+  
+  /**
+   * Option Section Display
+   * 
+   * Display an options section if the section param 
+   * is passed via a query string in the url.
+   * 
+   * Example: <php get_admin_url() . 'themes.php?page=yourtheme_options&section=logo_section'
+   */
+	var section_id = getParameterByName('section');
+	
+	if( section_id ) {
+		var section_id = '#' + section_id;
+		jQuery('h3', section_id).addClass('open');
+		jQuery('.struts-section-body', section_id).css('display','block');
+	}
+	
+	function getParameterByName(name) {
+	  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+	  var regexS = "[\\?&]" + name + "=([^&#]*)";
+	  var regex = new RegExp(regexS);
+	  var results = regex.exec(window.location.search);
+	  if(results == null)
+	    return "";
+	  else
+	    return decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+
 });
