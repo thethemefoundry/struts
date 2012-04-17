@@ -6,6 +6,7 @@ jQuery(document).ready(function($) {
     return false;
   });
 
+  // Handles sending the image from the media uploader screen to the input field (for images)
   window.original_send_to_editor = window.send_to_editor;
   window.send_to_editor = function(html) {
     if(formfield) {
