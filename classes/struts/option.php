@@ -103,7 +103,7 @@ abstract class Struts_Option {
 	}
 
 	// The HTML ID takes the form 'parentname-optionname'
-	protected function html_id() {
+	public function html_id() {
 		return $this->parent_name() . '-' . $this->name();
 	}
 
