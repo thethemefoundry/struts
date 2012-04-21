@@ -20,7 +20,11 @@ jQuery(document).ready(function($) {
 
   // Color Chooser Option
   jQuery('.struts-color-chooser').each(function() {
-    jQuery(this).farbtastic('#' + jQuery(this).attr('data-field-id'));
+    var inputField = '#' + jQuery(this).attr('data-field-id');
+    jQuery(this).farbtastic(function(color){
+      jQuery(inputField).css('color', color).val(color);
+      jQuery(inputField).trigger('change');
+    });
   });
 
   // hides as soon as the DOM is ready
