@@ -3,7 +3,7 @@
 abstract class Struts_Option {
 	protected $_name, $_valid_values, $_value, $_type, $_default_value,
 			  $_tab, $_label, $_description, $_parent_name, $_validation_function,
-			  $_preview_function;
+			  $_preview_function, $_preview_value;
 
 	public function name( $name = NULL ) {
 		if ( NULL === $name )
@@ -99,6 +99,14 @@ abstract class Struts_Option {
 			return $this->_preview_function;
 
 		$this->_preview_function = $preview_function;
+		return $this;
+	}
+
+	public function preview_value( $preview_value = NULL ) {
+		if ( NULL === $preview_value )
+			return $this->_preview_value;
+
+		$this->_preview_value = $preview_value;
 		return $this;
 	}
 

@@ -109,6 +109,10 @@ class Struts_Options {
 	}
 
 	public function initialize() {
+		$this->set_option_values();
+	}
+
+	protected function set_option_values() {
 		$option_values = get_option( $this->name() );
 
 		if ( false === $option_values || empty( $option_values ) ) {
