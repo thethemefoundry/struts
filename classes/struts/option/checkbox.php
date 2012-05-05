@@ -29,4 +29,13 @@ class Struts_Option_Checkbox extends Struts_Option {
 		echo " ";
 		if ( Struts::config( 'use_struts_skin' ) ) { $this->label_html(); }
 	}
+
+	protected function customizer_control_options( $setting_name ) {
+		return array_merge(
+			parent::customizer_control_options( $setting_name ),
+			array(
+				'type' => 'checkbox'
+			)
+		);
+	}
 }

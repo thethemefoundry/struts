@@ -72,6 +72,8 @@ class Struts_Options {
 		add_action( 'admin_init', array( &$this, 'register' ) );
 		// Enqueue the styles and scripts
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
+		// For the theme customizer
+		add_action( 'customize_register', array( &$this,'register_customizer' ) );
 	}
 
 	public function enqueue_scripts() {
@@ -156,6 +158,12 @@ class Struts_Options {
 		}
 	}
 
+	public function register_customizer( $wp_customize ) {
+		foreach( $this->sections() as $section ) {
+			$section->register_customizer( $wp_customize );
+		}
+	}
+
 	public function validate( $inputs ) {
 		$validated_input = array();
 
@@ -198,6 +206,7 @@ class Struts_Options {
 		$option = new $option_class;
 		$option->name( $name );
 		$option->parent_name( $this->name() );
+		$option->type( $type );
 
 		if ( NULL !== $section ) {
 			$sections = $this->sections();

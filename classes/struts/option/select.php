@@ -29,4 +29,14 @@ class Struts_Option_Select extends Struts_Option {
 
 		return $this->default_value();
 	}
+
+	protected function customizer_control_options( $setting_name ) {
+		return array_merge(
+			parent::customizer_control_options( $setting_name ),
+			array(
+				'type' => 'radio',
+				'choices' => $this->valid_values()
+			)
+		);
+	}
 }

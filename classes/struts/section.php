@@ -58,6 +58,16 @@ class Struts_Section {
 		}
 	}
 
+	public function register_customizer( $wp_customize ) {
+		$wp_customize->add_section( $this->id(), array(
+			'title' => $this->title()
+		) );
+
+		foreach ( $this->options() as $option ) {
+			$option->register_customizer( $wp_customize );
+		}
+	}
+
 	public function options( $options = NULL ) {
 		if ( NULL === $options )
 			return $this->_options;

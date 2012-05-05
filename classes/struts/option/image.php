@@ -14,4 +14,8 @@ class Struts_Option_Image extends Struts_Option {
 	protected function standard_validation( $value ) {
 		return trim( $value );
 	}
+
+	protected function add_customizer_control( $wp_customize, $setting_name ) {
+		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $this->name(), $this->customizer_control_options( $setting_name ) ) );
+	}
 }

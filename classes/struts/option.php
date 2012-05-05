@@ -116,6 +116,18 @@ abstract class Struts_Option {
 			$this->section() );
 	}
 
+	public function register_customizer( $wp_customize ) {
+		$setting_name = "{$this->parent_name()}[{$this->name()}]";
+
+		$wp_customize->add_setting( $setting_name, array(
+			'default'        => $this->default_value(),
+			'type'           => 'option',
+			'capability'     => 'edit_theme_options',
+		) );
+
+		$this->add_customizer_control( $wp_customize, $setting_name );
+	}
+
 	public function validate( $value ) {
 		if ( $validation_function = $this->validation_function() ) {
 			return $validation_function( $value );
@@ -152,6 +164,18 @@ abstract class Struts_Option {
 		if ( $this->label() ) {
 			echo '<label class="struts-label" for="' . esc_attr( $this->html_id() ) . '">' . $this->label() . '</label>';
 		}
+	}
+
+	protected function add_customizer_control( $wp_customize, $setting_name ) {
+		$wp_customize->add_control( $this->name(), $this->customizer_control_options( $setting_name ) );
+	}
+
+	protected function customizer_control_options( $setting_name ) {
+		return array(
+			'label' => strip_tags( $this->label() ),
+			'section' => $this->section(),
+			'settings' => $setting_name
+		);
 	}
 
 	abstract protected function input_html();
