@@ -2,7 +2,8 @@
 
 abstract class Struts_Option {
 	protected $_name, $_valid_values, $_value, $_type, $_default_value,
-			  $_tab, $_label, $_description, $_parent_name, $_validation_function;
+			  $_tab, $_label, $_description, $_parent_name, $_validation_function,
+			  $_preview_function;
 
 	public function name( $name = NULL ) {
 		if ( NULL === $name )
@@ -93,6 +94,14 @@ abstract class Struts_Option {
 		return $this;
 	}
 
+	public function preview_function( $preview_function = NULL ) {
+		if ( NULL === $preview_function )
+			return $this->_preview_function;
+
+		$this->_preview_function = $preview_function;
+		return $this;
+	}
+
 	// The HTML ID takes the form 'parentname-optionname'
 	protected function html_id() {
 		return $this->parent_name() . '-' . $this->name();
@@ -126,6 +135,27 @@ abstract class Struts_Option {
 		) );
 
 		$this->add_customizer_control( $wp_customize, $setting_name );
+
+		if ( $this->preview_function() ) {
+			$wp_customize->get_setting( $setting_name )->transport = 'postMessage';
+
+			if ( $wp_customize->is_preview() && ! is_admin() ) {
+				add_action( 'wp_footer', array( &$this, 'customizer_preview' ), 21);
+			}
+		}
+	}
+
+	public function customizer_preview() {
+		$setting_name = "{$this->parent_name()}[{$this->name()}]";
+		?>
+		<script type="text/javascript">
+			wp.customize('<?php echo esc_js( $setting_name ); ?>',function( value ) {
+				value.bind(function(to) {
+					<?php echo $this->preview_function(); ?>(to);
+				});
+			});
+		</script>
+		<?php
 	}
 
 	public function validate( $value ) {

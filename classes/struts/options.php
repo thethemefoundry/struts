@@ -161,6 +161,17 @@ class Struts_Options {
 	}
 
 	public function register_customizer( $wp_customize ) {
+		if ( Struts::config( 'preview_javascript' ) && $wp_customize->is_preview() && ! is_admin() ) {
+			$preview_javascript_dependencies = Struts::config( 'preview_javascript_dependencies' ) ? Struts::config( 'preview_javascript_dependencies' ) : array();
+
+			wp_enqueue_script(
+				'struts-preview-js',
+				Struts::config( 'preview_javascript' ),
+				$preview_javascript_dependencies,
+				null
+			);
+		}
+
 		foreach( $this->sections() as $section ) {
 			$section->register_customizer( $wp_customize );
 		}
@@ -185,9 +196,6 @@ class Struts_Options {
 		return $validated_input;
 	}
 
-	/**
-	 *
-	 */
 	public function add_section( $id, $title, $description = NULL ) {
 		$this->_sections[$id] = new Struts_Section( $id, $title, $description, $this->name() );
 	}
