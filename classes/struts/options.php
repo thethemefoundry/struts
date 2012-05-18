@@ -74,6 +74,8 @@ class Struts_Options {
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 		// For the theme customizer
 		add_action( 'customize_register', array( &$this,'register_customizer' ) );
+		// Initialize options on wp_loaded, AFTER the customizer has a chance to register filters
+		add_action( 'wp_loaded', array( &$this,'initialize' ), 20 );
 	}
 
 	public function enqueue_scripts() {
