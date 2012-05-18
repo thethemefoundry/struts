@@ -17,8 +17,12 @@ class Struts_Option_Color extends Struts_Option {
 	}
 
 	protected function standard_validation( $value ) {
+		if ( '#' !== substr( $value, 0, 1 ) ) {
+			$value = '#' . $value;
+		}
+
 		// Color must be in hex format
-		if ( '#' !== substr( $value, 0, 1 ) || ! ctype_xdigit( substr( $value, 1 ) ) ) {
+		if ( ! ctype_xdigit( substr( $value, 1 ) ) ) {
 			return $this->default_value();
 		}
 
@@ -31,6 +35,23 @@ class Struts_Option_Color extends Struts_Option {
 			echo '<a href="#" class="struts-color-chooser-toggle">' . __( 'show color picker', 'struts' ) . '</a>';
 			echo "</label>";
 		}
+	}
+
+	/**
+	 * The Theme Customizer stores color values without the pound sign. To ensure backwards
+	 * compatibility, when retrieving the value, we append the pound sign if it doesn't exist.
+	 */
+	public function value( $value = NULL ) {
+		if ( NULL === $value ) {
+			$value = $this->_value;
+			if ( '#' !== substr( $value, 0, 1 ) ) {
+				$value = '#' . $value;
+			}
+			return $value;
+		}
+
+		$this->_value = $value;
+		return $this;
 	}
 
 	/**
@@ -49,5 +70,9 @@ class Struts_Option_Color extends Struts_Option {
 
 		$this->_default_value = $default_value;
 		return $this;
+	}
+
+	protected function add_customizer_control( $wp_customize, $setting_name ) {
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $this->name(), $this->customizer_control_options( $setting_name ) ) );
 	}
 }
