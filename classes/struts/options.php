@@ -1,7 +1,7 @@
 <?php
 
 class Struts_Options {
-	protected $_sections, $_all_options, $_name, $_slug, $_stranded_options;
+	protected $_sections, $_all_options, $_name, $_slug, $_stranded_options, $_is_initialized;
 
 	public function __construct( $slug, $name ) {
 		$this->sections( array() );
@@ -63,6 +63,15 @@ class Struts_Options {
 		return $this;
 	}
 
+	public function is_initialized( $is_initialized = NULL ) {
+		if ( NULL === $is_initialized )
+			return $this->_is_initialized;
+
+		$this->_is_initialized = $is_initialized;
+
+		return $this;
+	}
+
 	/***** WordPress setup *****/
 
 	public function register_hooks() {
@@ -113,6 +122,13 @@ class Struts_Options {
 	}
 
 	public function initialize() {
+		// We only want to initialize the options once.
+		if ( $this->is_initialized() ) {
+			throw new StrutsOptionsAlreadyInitializedException( __( 'Options already initialized. Struts no longer requires manual initialization.', 'struts' ) );
+		} else {
+			$this->is_initialized( true );
+		}
+
 		$option_values = get_option( $this->name() );
 
 		if ( false === $option_values || empty( $option_values ) ) {
@@ -310,4 +326,5 @@ class Struts_Options {
 
 }
 
-class SectionNotFoundException extends Exception { }
+class SectionNotFoundException extends Exception {}
+class StrutsOptionsAlreadyInitializedException extends Exception {}
