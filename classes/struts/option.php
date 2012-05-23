@@ -136,25 +136,25 @@ abstract class Struts_Option {
 
 		$this->add_customizer_control( $wp_customize, $setting_name );
 
+		// If this option has a JavaScript preview_function, we want to set the transport to
+		// 'postMessage' (real-time previewing) and then call the preview_function when the option is changed.
 		if ( $this->preview_function() ) {
 			$wp_customize->get_setting( $setting_name )->transport = 'postMessage';
-
-			if ( $wp_customize->is_preview() && ! is_admin() ) {
-				add_action( 'wp_footer', array( &$this, 'customizer_preview' ), 21);
-			}
+			add_action( 'struts_preview_javascript', array( &$this, 'customizer_preview' ) );
 		}
 	}
 
+	/**
+	 * Prints some JavaScript that runs preview_function, passing the "to" variable as a parameter.
+	 */
 	public function customizer_preview() {
 		$setting_name = "{$this->parent_name()}[{$this->name()}]";
 		?>
-		<script type="text/javascript">
 			wp.customize('<?php echo esc_js( $setting_name ); ?>',function( value ) {
 				value.bind(function(to) {
 					<?php echo $this->preview_function(); ?>(to);
 				});
 			});
-		</script>
 		<?php
 	}
 

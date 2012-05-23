@@ -176,6 +176,10 @@ class Struts_Options {
 		}
 	}
 
+	/**
+	 * Registers the JavaScript to power real-time previews in addition
+	 * to the actual sections/options for the customizer.
+	 */
 	public function register_customizer( $wp_customize ) {
 		if ( Struts::config( 'preview_javascript' ) && $wp_customize->is_preview() && ! is_admin() ) {
 			$preview_javascript_dependencies = Struts::config( 'preview_javascript_dependencies' ) ? Struts::config( 'preview_javascript_dependencies' ) : array();
@@ -186,11 +190,27 @@ class Struts_Options {
 				$preview_javascript_dependencies,
 				null
 			);
+
+			// JavaScript to power options with real-time postMessage handling.
+			add_action( 'wp_footer', array( &$this, 'print_preview_javascript' ), 30 );
 		}
 
+		// Each section then registers itself and its options.
 		foreach( $this->sections() as $section ) {
 			$section->register_customizer( $wp_customize );
 		}
+	}
+
+	/**
+	 * Calls the struts_preview_javascript action, which individual options hook onto to
+	 * print the JavaScript to power real-time previews.
+	 */
+	public function print_preview_javascript() {
+		?>
+		<script type="text/javascript">
+			<?php do_action( 'struts_preview_javascript' ); ?>
+		</script>
+		<?php
 	}
 
 	public function validate( $inputs ) {
