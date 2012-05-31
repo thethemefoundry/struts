@@ -1,13 +1,14 @@
 <?php
 
 class Struts_Section {
-	protected $_id, $_title, $_description, $_parent_name, $_options;
+	protected $_id, $_title, $_description, $_parent_name, $_options, $_priority;
 
-	public function __construct( $id, $title, $description, $parent_name ) {
+	public function __construct( $id, $title, $description, $parent_name, $priority = 35 ) {
 		$this->id( $id );
 		$this->title( $title );
 		$this->description( $description );
 		$this->parent_name( $parent_name );
+		$this->priority( $priority );
 	}
 
 	public function id( $id = NULL ) {
@@ -42,6 +43,14 @@ class Struts_Section {
 		return $this;
 	}
 
+	public function priority( $priority = NULL ) {
+		if ( NULL === $priority )
+			return $this->_priority;
+
+		$this->_priority = $priority;
+		return $this;
+	}
+
 	public function description_html() {
 		echo "<p>{$this->description()}</p>";
 	}
@@ -60,7 +69,8 @@ class Struts_Section {
 
 	public function register_customizer( $wp_customize ) {
 		$wp_customize->add_section( $this->id(), array(
-			'title' => $this->title()
+			'title' => $this->title(),
+			'priority' => $this->priority()
 		) );
 
 		foreach ( $this->options() as $option ) {

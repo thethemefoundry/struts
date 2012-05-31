@@ -232,8 +232,8 @@ class Struts_Options {
 		return $validated_input;
 	}
 
-	public function add_section( $id, $title, $description = NULL ) {
-		$this->_sections[$id] = new Struts_Section( $id, $title, $description, $this->name() );
+	public function add_section( $id, $title, $priority = 35, $description = NULL ) {
+		$this->_sections[$id] = new Struts_Section( $id, $title, $description, $this->name(), $priority );
 	}
 
 	/**
