@@ -30,9 +30,9 @@ class Struts_Option_Select extends Struts_Option {
 		return $this->default_value();
 	}
 
-	protected function customizer_control_options( $setting_name ) {
+	protected function customizer_control_options( $setting_name, $priority ) {
 		return array_merge(
-			parent::customizer_control_options( $setting_name ),
+			parent::customizer_control_options( $setting_name, $priority ),
 			array(
 				'type' => 'radio',
 				'choices' => $this->valid_values()

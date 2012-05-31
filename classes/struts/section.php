@@ -73,8 +73,9 @@ class Struts_Section {
 			'priority' => $this->priority()
 		) );
 
+		$priority_counter = 1;
 		foreach ( $this->options() as $option ) {
-			$option->register_customizer( $wp_customize );
+			$option->register_customizer( $wp_customize, $priority_counter++ );
 		}
 	}
 

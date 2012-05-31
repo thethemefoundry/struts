@@ -30,9 +30,9 @@ class Struts_Option_Checkbox extends Struts_Option {
 		if ( Struts::config( 'use_struts_skin' ) ) { $this->label_html(); }
 	}
 
-	protected function customizer_control_options( $setting_name ) {
+	protected function customizer_control_options( $setting_name, $priority = 1000 ) {
 		return array_merge(
-			parent::customizer_control_options( $setting_name ),
+			parent::customizer_control_options( $setting_name, $priority ),
 			array(
 				'type' => 'checkbox'
 			)

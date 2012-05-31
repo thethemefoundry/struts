@@ -72,7 +72,7 @@ class Struts_Option_Color extends Struts_Option {
 		return $this;
 	}
 
-	protected function add_customizer_control( $wp_customize, $setting_name ) {
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $this->name(), $this->customizer_control_options( $setting_name ) ) );
+	protected function add_customizer_control( $wp_customize, $setting_name, $priority ) {
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $this->name(), $this->customizer_control_options( $setting_name, $priority ) ) );
 	}
 }

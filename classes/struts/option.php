@@ -125,7 +125,7 @@ abstract class Struts_Option {
 			$this->section() );
 	}
 
-	public function register_customizer( $wp_customize ) {
+	public function register_customizer( $wp_customize, $priority ) {
 		$setting_name = "{$this->parent_name()}[{$this->name()}]";
 
 		$wp_customize->add_setting( $setting_name, array(
@@ -134,7 +134,7 @@ abstract class Struts_Option {
 			'capability'     => 'edit_theme_options',
 		) );
 
-		$this->add_customizer_control( $wp_customize, $setting_name );
+		$this->add_customizer_control( $wp_customize, $setting_name, $priority );
 
 		// If this option has a JavaScript preview_function, we want to set the transport to
 		// 'postMessage' (real-time previewing) and then call the preview_function when the option is changed.
@@ -196,15 +196,16 @@ abstract class Struts_Option {
 		}
 	}
 
-	protected function add_customizer_control( $wp_customize, $setting_name ) {
-		$wp_customize->add_control( $this->name(), $this->customizer_control_options( $setting_name ) );
+	protected function add_customizer_control( $wp_customize, $setting_name, $priority ) {
+		$wp_customize->add_control( $this->name(), $this->customizer_control_options( $setting_name, $priority ) );
 	}
 
-	protected function customizer_control_options( $setting_name ) {
+	protected function customizer_control_options( $setting_name, $priority = 1000 ) {
 		return array(
 			'label' => strip_tags( $this->label() ),
 			'section' => $this->section(),
-			'settings' => $setting_name
+			'settings' => $setting_name,
+			'priority' => $priority
 		);
 	}
 
