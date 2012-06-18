@@ -204,10 +204,13 @@ class Struts_Options {
 	/**
 	 * Calls the struts_preview_javascript action, which individual options hook onto to
 	 * print the JavaScript to power real-time previews.
+	 *
+	 * The defer attribute is used to prevent IE from running the script out of order.
+	 * http://hacks.mozilla.org/2009/06/defer/
 	 */
 	public function print_preview_javascript() {
 		?>
-		<script type="text/javascript">
+		<script type="text/javascript" defer="defer">
 			<?php do_action( 'struts_preview_javascript' ); ?>
 		</script>
 		<?php
