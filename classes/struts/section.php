@@ -103,6 +103,8 @@ class Struts_Section {
 		echo '<div class="struts-save-button submit">';
 		echo '<input type="submit" class="button-primary struts-save-button" value="' . __( 'Save changes', 'struts' ) . '" />';
 
+        do_action( 'struts_after_' . $this->id() . '_submit' );
+
 		echo "</div></div></div>";
 
 	}
