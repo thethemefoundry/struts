@@ -25,3 +25,6 @@ function struts_autoloader( $class ) {
 }
 
 spl_autoload_register( 'struts_autoloader' );
+
+define( 'STRUTS_DIR', dirname( __FILE__ ) . '/../' );
+define( 'STRUTS_TEMPLATE_DIR', STRUTS_DIR . 'templates/' );

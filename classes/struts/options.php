@@ -1,9 +1,9 @@
 <?php
 
 class Struts_Options {
-	protected $_sections, $_all_options, $_name, $_slug, $_menu_label, $_stranded_options, $_is_initialized;
+	protected $_sections, $_all_options, $_name, $_slug, $_menu_label, $_template_file, $_stranded_options, $_is_initialized;
 
-	public function __construct( $slug, $name, $menu_label = NULL ) {
+	public function __construct( $slug, $name, $menu_label = NULL, $template_file = NULL ) {
 		$this->sections( array() );
 		$this->all_options( array() );
 		$this->stranded_options( array() );
@@ -20,6 +20,13 @@ class Struts_Options {
 		}
 
 		$this->menu_label( $menu_label );
+
+		if ( NULL === $template_file ) {
+			$template_file = STRUTS_TEMPLATE_DIR . 'default.php';
+		}
+
+		$this->template_file( $template_file );
+
 		$this->register_hooks();
 	}
 
@@ -79,6 +86,15 @@ class Struts_Options {
 			return $this->_menu_label;
 
 		$this->_menu_label = $menu_label;
+
+		return $this;
+	}
+
+	public function template_file( $template_file = NULL ) {
+		if ( NULL === $template_file )
+			return $this->_template_file;
+
+		$this->_template_file = $template_file;
 
 		return $this;
 	}
@@ -193,7 +209,7 @@ class Struts_Options {
 				$this->menu_label(),
 				'manage_options',
 				$this->slug(),
-				array( &$this, 'echo_form_html' )
+				array( &$this, 'form_html' )
 			);
 		} else {
 			add_theme_page(
@@ -201,7 +217,7 @@ class Struts_Options {
 				$this->menu_label(),
 				'edit_theme_options',
 				$this->slug(),
-				array( &$this, 'echo_form_html' )
+				array( &$this, 'form_html' )
 			);
 		}
 	}
@@ -352,45 +368,9 @@ class Struts_Options {
 
 	/***** HTML Output *****/
 
-	public function echo_form_html() { ?>
-		<div id="struts-options" class="wrap">
-			<div id="icon-themes" class="icon32"><br></div>
-			<?php if ( $this->use_tabs() ) : ?>
-				<?php echo $this->tabs_html(); ?>
-			<?php else: ?>
-				<h2><?php echo $this->menu_label(); ?></h2>
-			<?php endif; ?>
-			<div id="struts-options" class="wrap">
-				<div id="struts-options-body">
-					<?php echo $this->settings_updated_html(); ?>
-					<form action="options.php" method="post">
-						<?php
-							settings_fields( $this->name() );
-							$this->do_options_html();
-						?>
-						<div class="struts-buttons-container">
-							<input name="<?php echo $this->name(); ?>[struts_submit]" type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />
-							<input name="<?php echo $this->name(); ?>[struts_reset]" type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e( 'Reset Defaults', 'struts' ); ?>" onclick="return confirm('Click OK if you want to reset your theme options to the defaults.')" />
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	<?php }
-
-	public function settings_updated_html() {
-		if ( isset( $_GET['settings-updated'] ) )
-			return "<div class='updated'><p>" . __( "Theme settings updated successfully.", 'struts' ) . "</p></div>";
-	}
-
-	public function tabs_html() {
-		?>
-		<h2 class="nav-tab-wrapper">
-			<?php foreach ( $this->sections() as $section ) : ?>
-				<a href="#" class="nav-tab nav-tab-active"><?php echo $section->title(); ?></a>
-			<?php endforeach; ?>
-		</h2>
-		<?php
+	public function form_html() {
+		$options = $this;
+		include( $this->template_file() );
 	}
 
 	public function do_options_html() {
