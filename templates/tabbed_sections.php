@@ -5,13 +5,18 @@
 	} else {
 		$current_section = reset( $sections );
 	}
+
+	global $pagenow;
+
+	// Current URL with only 'page' parameter
+	$current_url = add_query_arg( 'page', $options->slug(), '/wp-admin/' . $pagenow );
 ?>
 <div class="wrap">
 	<div id="icon-options-general" class="icon32"><br></div>
 	<h2 class="nav-tab-wrapper">
 		<?php foreach ( $sections as $section ) : ?>
 			<?php $is_active = ( $current_section->id() === $section->id() ); ?>
-			<a href="<?php echo esc_url( add_query_arg( 'section', $section->id() ) ); ?>" class="nav-tab<?php echo $is_active ? ' nav-tab-active' : ''; ?>"><?php echo $section->title(); ?></a>
+			<a href="<?php echo esc_url( add_query_arg( 'section', $section->id(), $current_url ) ); ?>" class="nav-tab<?php echo $is_active ? ' nav-tab-active' : ''; ?>"><?php echo $section->title(); ?></a>
 		<?php endforeach; ?>
 	</h2>
 	<div class="wrap">
