@@ -112,10 +112,6 @@ class Struts_Options {
 		return Struts::config( 'plugin' );
 	}
 
-	public function use_tabs() {
-		return Struts::config( 'use_tabs' );
-	}
-
 	/***** WordPress setup *****/
 
 	public function register_hooks() {
