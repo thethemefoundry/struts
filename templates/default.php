@@ -9,7 +9,14 @@
 			<form action="options.php" method="post">
 				<?php
 					settings_fields( $options->name() );
-					$options->do_options_html();
+
+					foreach ( $options->sections() as $section ) {
+						$section->to_html();
+					}
+
+					foreach ( $options->stranded_options() as $option ) {
+						$option->to_html();
+					}
 				?>
 				<div class="struts-buttons-container">
 					<input name="<?php echo $options->name(); ?>[struts_submit]" type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />

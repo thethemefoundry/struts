@@ -372,22 +372,6 @@ class Struts_Options {
 		$options = $this;
 		include( $this->template_file() );
 	}
-
-	public function do_options_html() {
-		if ( ! Struts::config( 'use_struts_skin' ) ) {
-			do_settings_sections( $this->name() );
-			return;
-		}
-
-		foreach ( $this->sections() as $section ) {
-			$section->to_html();
-		}
-
-		foreach ( $this->stranded_options() as $option ) {
-			$option->to_html();
-		}
-	}
-
 }
 
 class SectionNotFoundException extends Exception {}
