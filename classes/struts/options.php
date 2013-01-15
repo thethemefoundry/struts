@@ -96,6 +96,10 @@ class Struts_Options {
 		return Struts::config( 'plugin' );
 	}
 
+	public function use_tabs() {
+		return Struts::config( 'use_tabs' );
+	}
+
 	/***** WordPress setup *****/
 
 	public function register_hooks() {
@@ -351,7 +355,11 @@ class Struts_Options {
 	public function echo_form_html() { ?>
 		<div id="struts-options" class="wrap">
 			<div id="icon-themes" class="icon32"><br></div>
-			<h2><?php echo $this->menu_label(); ?></h2>
+			<?php if ( $this->use_tabs() ) : ?>
+				<?php echo $this->tabs_html(); ?>
+			<?php else: ?>
+				<h2><?php echo $this->menu_label(); ?></h2>
+			<?php endif; ?>
 			<div id="struts-options" class="wrap">
 				<div id="struts-options-body">
 					<?php echo $this->settings_updated_html(); ?>
@@ -373,6 +381,16 @@ class Struts_Options {
 	public function settings_updated_html() {
 		if ( isset( $_GET['settings-updated'] ) )
 			return "<div class='updated'><p>" . __( "Theme settings updated successfully.", 'struts' ) . "</p></div>";
+	}
+
+	public function tabs_html() {
+		?>
+		<h2 class="nav-tab-wrapper">
+			<?php foreach ( $this->sections() as $section ) : ?>
+				<a href="#" class="nav-tab nav-tab-active"><?php echo $section->title(); ?></a>
+			<?php endforeach; ?>
+		</h2>
+		<?php
 	}
 
 	public function do_options_html() {
