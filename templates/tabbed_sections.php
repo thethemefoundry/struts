@@ -17,7 +17,9 @@
 	<h2 class="nav-tab-wrapper">
 		<?php foreach ( $sections as $section ) : ?>
 			<?php $is_active = ( $current_section->id() === $section->id() ); ?>
-			<a href="<?php echo esc_url( add_query_arg( 'section', $section->id(), $current_url ) ); ?>" class="nav-tab<?php echo $is_active ? ' nav-tab-active' : ''; ?>"><?php echo $section->title(); ?></a>
+			<a href="<?php echo esc_url( add_query_arg( 'section', $section->id(), $current_url ) ); ?>" class="nav-tab<?php echo $is_active ? ' nav-tab-active' : ''; ?>">
+				<?php echo $section->title(); ?>
+			</a>
 		<?php endforeach; ?>
 	</h2>
 	<div class="wrap">
