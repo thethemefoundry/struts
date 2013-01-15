@@ -1,5 +1,6 @@
 <?php
 	$sections = $options->sections();
+
 	if ( isset( $_GET['section'] ) && isset( $sections[$_GET['section']] ) ) {
 		$current_section = $sections[$_GET['section']];
 	} else {
