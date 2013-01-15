@@ -11,7 +11,12 @@ class Struts_Options {
 		$this->name( $name );
 
 		if ( NULL === $menu_label ) {
-			$menu_label = __( 'Options', 'struts' );
+			if ( Struts::config( 'plugin' ) ) {
+				$menu_label = __( 'Options', 'struts' );
+			} else {
+				// For consistency with previous versions
+				$menu_label = __( 'Theme Options', 'struts' );
+			}
 		}
 
 		$this->menu_label( $menu_label );
@@ -175,8 +180,8 @@ class Struts_Options {
 			);
 		} else {
 			add_theme_page(
-				__( 'Theme Options', 'struts' ),
-				__( 'Theme Options', 'struts' ),
+				$this->menu_label(),
+				$this->menu_label(),
 				'edit_theme_options',
 				$this->slug(),
 				array( &$this, 'echo_form_html' )
