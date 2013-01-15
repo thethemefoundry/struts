@@ -92,6 +92,10 @@ class Struts_Options {
 		return $this;
 	}
 
+	public function is_plugin() {
+		return Struts::config( 'plugin' );
+	}
+
 	/***** WordPress setup *****/
 
 	public function register_hooks() {
@@ -108,10 +112,16 @@ class Struts_Options {
 	}
 
 	public function enqueue_scripts() {
+		if ( $this->is_plugin() ) {
+			$has_capability = current_user_can( 'manage_options' );
+		} else {
+			$has_capability = current_user_can( 'edit_theme_options' )
+		}
+
 		$enqueue_scripts =
 			is_admin()
 			&&
-			current_user_can( 'edit_theme_options' )
+			$has_capability
 			&&
 			isset( $_GET['page'] )
 			&&
@@ -170,7 +180,7 @@ class Struts_Options {
 	}
 
 	public function add_options_page() {
-		if ( Struts::config( 'plugin' ) ) {
+		if ( $this->is_plugin() ) {
 			add_options_page(
 				$this->menu_label(),
 				$this->menu_label(),
