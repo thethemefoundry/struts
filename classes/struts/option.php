@@ -167,20 +167,16 @@ abstract class Struts_Option {
 	}
 
 	public function to_html() {
-		if ( Struts::config( 'use_struts_skin' ) ) {
-			echo '<div class="' . esc_attr( 'clear struts-option ' . $this->html_input_class() ) . '">';
-		}
+		echo '<div class="' . esc_attr( 'clear struts-option ' . $this->html_input_class() ) . '">';
 
 		$this->base_html();
 
-		if ( Struts::config( 'use_struts_skin' ) ) {
-			echo "</div>";
-		}
+		echo "</div>";
 	}
 
 	protected function base_html() {
 		$this->description_html();
-		if ( Struts::config( 'use_struts_skin' ) ) { $this->label_html(); }
+		$this->label_html();
 		$this->input_html();
 	}
 

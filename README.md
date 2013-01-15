@@ -11,8 +11,7 @@ Struts is an Options library for WordPress that aims to make setting up Theme op
 			locate_template( array( 'path/to/struts/classes/struts.php' ), true );
 
 			Struts::load_config( array(
-				'struts_root_uri' => get_template_directory_uri() . '/path/to/struts', // required, set this to the URI of the root Struts directory
-				'use_struts_skin' => true, // optional, overrides the Settings API html output
+				'struts_root_uri' => get_template_directory_uri() . '/path/to/struts' // required, set this to the URI of the root Struts directory
 			) );
 
 			global $mytheme_options;

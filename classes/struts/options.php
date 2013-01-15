@@ -161,12 +161,10 @@ class Struts_Options {
 
 			wp_enqueue_style( 'farbtastic' );
 
-			if ( Struts::config( 'use_struts_skin' ) ) {
-				wp_enqueue_style(
-					'struts-admin',
-					Struts::config( 'struts_root_uri' ) . '/stylesheets/struts.css'
-				);
-			}
+			wp_enqueue_style(
+				'struts-default',
+				Struts::config( 'struts_root_uri' ) . '/stylesheets/default.css'
+			);
 		}
 	}
 

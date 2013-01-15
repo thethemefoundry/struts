@@ -9,6 +9,11 @@ class Struts_Options_Tabbed extends Struts_Options {
 		parent::__construct( $slug, $name, $menu_label, $template_file );
 	}
 
+	public function enqueue_scripts() {
+		parent::enqueue_scripts();
+		wp_dequeue_style( 'struts-default' );
+	}
+
 	public function validate( $inputs ) {
 		if ( isset( $_POST['struts_section'] ) ) {
 			$current_section_id = $_POST['struts_section'];
