@@ -24,9 +24,6 @@
 	</h2>
 	<div class="wrap">
 		<div>
-			<?php if ( isset( $_GET['settings-updated'] ) ) : ?>
-				<div class="updated"><p><?php _e( 'Settings updated successfully.', 'struts' ); ?></p></div>
-			<?php endif; ?>
 			<form action="options.php" method="post">
 				<input type="hidden" name="struts_section" value="<?php echo esc_attr( $current_section->id() ); ?>">
 				<?php settings_fields( $options->name() ); ?>
