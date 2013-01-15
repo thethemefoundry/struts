@@ -11,7 +11,7 @@ class Struts_Options {
 		$this->name( $name );
 
 		if ( NULL === $menu_label ) {
-			if ( Struts::config( 'plugin' ) ) {
+			if ( $this->is_plugin() ) {
 				$menu_label = __( 'Options', 'struts' );
 			} else {
 				// For consistency with previous versions
@@ -105,10 +105,13 @@ class Struts_Options {
 		add_action( 'admin_init', array( &$this, 'register' ) );
 		// Enqueue the styles and scripts
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
-		// For the theme customizer
-		add_action( 'customize_register', array( &$this,'register_customizer' ) );
 		// Initialize options on wp_loaded, AFTER the customizer has a chance to register filters
-		add_action( 'wp_loaded', array( &$this,'initialize' ), 20 );
+		add_action( 'wp_loaded', array( &$this, 'initialize' ), 20 );
+
+		// Register for the customizer only if options are for a theme
+		if ( ! $this->is_plugin() ) {
+			add_action( 'customize_register', array( &$this, 'register_customizer' ) );
+		}
 	}
 
 	public function enqueue_scripts() {
@@ -348,7 +351,7 @@ class Struts_Options {
 	public function echo_form_html() { ?>
 		<div id="struts-options" class="wrap">
 			<div id="icon-themes" class="icon32"><br></div>
-			<h2><?php _e( 'Theme Options', 'struts' ); ?></h2>
+			<h2><?php echo $this->menu_label(); ?></h2>
 			<div id="struts-options" class="wrap">
 				<div id="struts-options-body">
 					<?php echo $this->settings_updated_html(); ?>
@@ -373,7 +376,6 @@ class Struts_Options {
 	}
 
 	public function do_options_html() {
-
 		if ( ! Struts::config( 'use_struts_skin' ) ) {
 			do_settings_sections( $this->name() );
 			return;
