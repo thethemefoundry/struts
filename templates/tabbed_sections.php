@@ -1,15 +1,28 @@
-<div id="struts-options" class="wrap">
-	<div id="icon-themes" class="icon32"><br></div>
-	<h2><?php echo $options->menu_label(); ?></h2>
-	<div id="struts-options" class="wrap">
-		<div id="struts-options-body">
+<?php
+	$sections = $options->sections();
+	if ( isset( $_GET['section'] ) && isset( $sections[$_GET['section']] ) ) {
+		$current_section = $sections[$_GET['section']];
+	} else {
+		$current_section = reset( $sections );
+	}
+?>
+<div class="wrap">
+	<div id="icon-options-general" class="icon32"><br></div>
+	<h2 class="nav-tab-wrapper">
+		<?php foreach ( $sections as $section ) : ?>
+			<?php $is_active = ( $current_section->id() === $section->id() ); ?>
+			<a href="#" class="nav-tab<?php echo $is_active ? ' nav-tab-active' : ''; ?>"><?php echo $section->title(); ?></a>
+		<?php endforeach; ?>
+	</h2>
+	<div class="wrap">
+		<div>
 			<?php if ( isset( $_GET['settings-updated'] ) ) : ?>
 				<div class="updated"><p><?php _e( 'Settings updated successfully.', 'struts' ); ?></p></div>
 			<?php endif; ?>
 			<form action="options.php" method="post">
 				<?php
 					settings_fields( $options->name() );
-					$options->do_options_html();
+					echo $current_section->to_html();
 				?>
 				<div class="struts-buttons-container">
 					<input name="<?php echo $options->name(); ?>[struts_submit]" type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />
