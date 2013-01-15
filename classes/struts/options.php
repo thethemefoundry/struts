@@ -115,7 +115,7 @@ class Struts_Options {
 		if ( $this->is_plugin() ) {
 			$has_capability = current_user_can( 'manage_options' );
 		} else {
-			$has_capability = current_user_can( 'edit_theme_options' )
+			$has_capability = current_user_can( 'edit_theme_options' );
 		}
 
 		$enqueue_scripts =
