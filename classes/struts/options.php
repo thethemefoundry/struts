@@ -1,14 +1,20 @@
 <?php
 
 class Struts_Options {
-	protected $_sections, $_all_options, $_name, $_slug, $_stranded_options, $_is_initialized;
+	protected $_sections, $_all_options, $_name, $_slug, $_menu_label, $_stranded_options, $_is_initialized;
 
-	public function __construct( $slug, $name ) {
+	public function __construct( $slug, $name, $menu_label = NULL ) {
 		$this->sections( array() );
 		$this->all_options( array() );
 		$this->stranded_options( array() );
 		$this->slug( $slug );
 		$this->name( $name );
+
+		if ( NULL === $menu_label ) {
+			$menu_label = __( 'Options', 'struts' );
+		}
+
+		$this->menu_label( $menu_label );
 		$this->register_hooks();
 	}
 
@@ -63,6 +69,15 @@ class Struts_Options {
 		return $this;
 	}
 
+	public function menu_label( $menu_label = NULL ) {
+		if ( NULL === $menu_label )
+			return $this->_menu_label;
+
+		$this->_menu_label = $menu_label;
+
+		return $this;
+	}
+
 	public function is_initialized( $is_initialized = NULL ) {
 		if ( NULL === $is_initialized )
 			return $this->_is_initialized;
@@ -76,7 +91,7 @@ class Struts_Options {
 
 	public function register_hooks() {
 		// Load the Admin Options page
-		add_action( 'admin_menu', array( &$this, 'add_theme_options_page' ) );
+		add_action( 'admin_menu', array( &$this, 'add_options_page' ) );
 		// Register the sections and options
 		add_action( 'admin_init', array( &$this, 'register' ) );
 		// Enqueue the styles and scripts
@@ -149,13 +164,24 @@ class Struts_Options {
 		}
 	}
 
-	public function add_theme_options_page() {
-		add_theme_page(
-			__( 'Theme Options', 'struts' ),
-			__( 'Theme Options', 'struts' ),
-			'edit_theme_options',
-			$this->slug(),
-			array( &$this, 'echo_form_html' ) );
+	public function add_options_page() {
+		if ( Struts::config( 'plugin' ) ) {
+			add_options_page(
+				$this->menu_label(),
+				$this->menu_label(),
+				'manage_options',
+				$this->slug(),
+				array( &$this, 'echo_form_html' )
+			);
+		} else {
+			add_theme_page(
+				__( 'Theme Options', 'struts' ),
+				__( 'Theme Options', 'struts' ),
+				'edit_theme_options',
+				$this->slug(),
+				array( &$this, 'echo_form_html' )
+			);
+		}
 	}
 
 	public function register() {
