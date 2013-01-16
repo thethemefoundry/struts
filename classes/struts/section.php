@@ -62,8 +62,12 @@ class Struts_Section {
 			array( &$this, 'description_html' ),
 			$this->parent_name() );
 
-		foreach ( $this->options() as $option ) {
-			$option->register();
+		$options = $this->options();
+
+		if ( ! empty( $options ) ) {
+			foreach ( $options as $option ) {
+				$option->register();
+			}
 		}
 	}
 
