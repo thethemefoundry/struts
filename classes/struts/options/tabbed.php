@@ -32,7 +32,9 @@ class Struts_Options_Tabbed extends Struts_Options {
 				}
 			} else {
 				foreach ( $current_section->options() as $id => $option ) {
-					if ( isset( $inputs[$id] ) ) {
+					if ( 'checkbox' == $option->type() && ! isset( $inputs[$id] ) ) {
+						$validated_input[$id] = false;
+					} elseif ( isset( $inputs[$id] ) ) {
 						$validated_input[$id] = $option->validate( $inputs[$id] );
 					}
 				}
