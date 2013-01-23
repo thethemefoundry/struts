@@ -194,6 +194,8 @@ class Struts_Options {
 				$option->value( $option->default_value() );
 			}
 		}
+
+		do_action( 'struts_' . $this->name(). '_initialized' );
 	}
 
 	public function add_options_page() {
