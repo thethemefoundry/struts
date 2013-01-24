@@ -2,8 +2,8 @@
 
 abstract class Struts_Option {
 	protected $_name, $_valid_values, $_value, $_type, $_default_value,
-			  $_tab, $_label, $_description, $_parent_name, $_validation_function,
-			  $_preview_function;
+	          $_tab, $_label, $_description, $_parent_name, $_validation_function,
+              $_to_html_function, $_preview_function;
 
 	public function name( $name = NULL ) {
 		if ( NULL === $name )
@@ -94,6 +94,14 @@ abstract class Struts_Option {
 		return $this;
 	}
 
+	public function to_html_function( $to_html_function = NULL ) {
+		if ( NULL === $to_html_function )
+			return $this->_to_html_function;
+
+		$this->_to_html_function = $to_html_function;
+		return $this;
+	}
+
 	public function preview_function( $preview_function = NULL ) {
 		if ( NULL === $preview_function )
 			return $this->_preview_function;
@@ -167,11 +175,15 @@ abstract class Struts_Option {
 	}
 
 	public function to_html() {
-		echo '<div class="' . esc_attr( 'clear struts-option ' . $this->html_input_class() ) . '">';
+		if ( $to_html_function = $this->to_html_function() ) {
+			return $to_html_function( $this );
+		} else {
+			echo '<div class="' . esc_attr( 'clear struts-option ' . $this->html_input_class() ) . '">';
 
-		$this->base_html();
+			$this->base_html();
 
-		echo "</div>";
+			echo "</div>";
+		}
 	}
 
 	protected function base_html() {
@@ -180,13 +192,13 @@ abstract class Struts_Option {
 		$this->input_html();
 	}
 
-	protected function description_html() {
+	public function description_html() {
 		if ( $this->description() ) {
 			echo "<div class='struts-option-description'>{$this->description()}</div>";
 		}
 	}
 
-	protected function label_html() {
+	public function label_html() {
 		if ( $this->label() ) {
 			echo '<label class="struts-label" for="' . esc_attr( $this->html_id() ) . '">' . $this->label() . '</label>';
 		}

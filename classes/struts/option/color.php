@@ -29,7 +29,7 @@ class Struts_Option_Color extends Struts_Option {
 		return $value;
 	}
 
-	protected function label_html() {
+	public function label_html() {
 		if ( $this->label() ) {
 			echo '<label class="struts-label" for="' . esc_attr( $this->html_id() ) . '">' . $this->label() . ' ';
 			echo '<a href="#" class="struts-color-chooser-toggle">' . __( 'show color picker', 'struts' ) . '</a>';
