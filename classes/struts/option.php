@@ -168,7 +168,7 @@ abstract class Struts_Option {
 
 	public function validate( $value ) {
 		if ( $validation_function = $this->validation_function() ) {
-			return $validation_function( $value );
+			return $validation_function( $value, $this );
 		} else {
 			return $this->standard_validation( $value );
 		}
