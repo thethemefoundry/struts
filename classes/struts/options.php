@@ -134,7 +134,13 @@ class Struts_Options {
 		if ( false === $option_values || empty( $option_values ) ) {
 			$option_values = $this->defaults();
 		}
-		update_option( $this->name(), $option_values );
+
+		// Don't save options in preview mode, only pull from the defaults
+		global $wp_customize;
+
+		if ( ! is_a( $wp_customize, 'WP_Customize_Manager' ) || ! $wp_customize->is_preview() ) {
+			update_option( $this->name(), $option_values );
+		}
 
 		foreach ( $this->all_options() as $option ) {
 			if ( isset( $option_values[$option->name()] ) ) {
