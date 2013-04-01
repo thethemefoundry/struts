@@ -321,11 +321,11 @@ class Struts_Options {
 						<?php
 							settings_fields( $this->name() );
 							$this->do_options_html();
-							$confirm_text = 'Click OK if you want to reset your theme options to the defaults.';
+							$confirm_text = __( 'Click OK if you want to reset your theme options to the defaults.', 'struts' );
 						?>
 						<div class="struts-buttons-container">
 							<input name="<?php echo esc_attr( $this->name() ); ?>[struts_submit]" type="submit" class="button-primary struts-save-button" value="<?php esc_attr_e( 'Save Settings', 'struts' ); ?>" />
-							<input name="<?php echo esc_attr( $this->name() ); ?>[struts_reset]" type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e( 'Reset Defaults', 'struts' ); ?>" onclick="return confirm('<?php esc_attr_e( $confirm_text, 'struts' ); ?>')" />
+							<input name="<?php echo esc_attr( $this->name() ); ?>[struts_reset]" type="submit" class="button-secondary struts-reset-button" value="<?php esc_attr_e( 'Reset Defaults', 'struts' ); ?>" onclick="return confirm('<?php echo esc_js( $confirm_text ); ?>')" />
 						</div>
 					</form>
 				</div>
