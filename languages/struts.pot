@@ -1,0 +1,66 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Struts\n"
+"POT-Creation-Date: 2013-08-19 08:50-0800\n"
+"PO-Revision-Date: 2013-08-19 08:50-0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext;_n;__ngettext_noop;_n_noop;_x;_nx;"
+"_nx_noop;_ex;esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;"
+"esc_html_x;_c;_nc()\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../classes/struts/options.php:127
+msgid ""
+"Options already initialized. Struts no longer requires manual initialization."
+msgstr ""
+
+#: ../classes/struts/options.php:160 ../classes/struts/options.php:161
+#: ../classes/struts/options.php:316
+msgid "Theme Options"
+msgstr ""
+
+#: ../classes/struts/options.php:269
+#, php-format
+msgid "Section with name &lsquo;%1$s&rsquo; not defined"
+msgstr ""
+
+#: ../classes/struts/options.php:324
+msgid "Click OK if you want to reset your theme options to the defaults."
+msgstr ""
+
+#: ../classes/struts/options.php:327
+msgid "Save Settings"
+msgstr ""
+
+#: ../classes/struts/options.php:328
+msgid "Reset Defaults"
+msgstr ""
+
+#: ../classes/struts/options.php:338
+msgid "Theme settings updated successfully."
+msgstr ""
+
+#: ../classes/struts/section.php:97
+msgid "Edit"
+msgstr ""
+
+#: ../classes/struts/section.php:104
+msgid "Save changes"
+msgstr ""
+
+#: ../classes/struts/option/color.php:35
+msgid "show color picker"
+msgstr ""
+
+#: ../classes/struts/option/image.php:11
+msgid "Upload Image"
+msgstr ""
