@@ -5,6 +5,8 @@ class Struts {
 
 	static public function load_config( array $config ) {
 		self::$_config = $config;
+		$locale = get_locale();
+		load_textdomain( 'struts', get_template_directory() . '/includes/struts/languages/' . $locale . '.mo' );
 	}
 
 	static public function config( $name ) {
