@@ -113,7 +113,8 @@ abstract class Struts_Option {
 	}
 
 	protected function html_input_class() {
-		return strtolower( array_pop( explode( '_', get_class( $this ) ) ) );
+		$pieces = explode( '_', get_class( $this ) );
+		return strtolower( array_pop( $pieces ) );
 	}
 
 	public function register() {
