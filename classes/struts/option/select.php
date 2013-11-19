@@ -30,7 +30,7 @@ class Struts_Option_Select extends Struts_Option {
 		return $this->default_value();
 	}
 
-	protected function customizer_control_options( $setting_name, $priority ) {
+	protected function customizer_control_options( $setting_name, $priority = 1000 ) {
 		return array_merge(
 			parent::customizer_control_options( $setting_name, $priority ),
 			array(
